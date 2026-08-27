@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Triathlon Strength & Conditioning</title>
+    <style>
+        /* Reset & print optimizations */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background: #f5f7fa;
+            padding: 2rem 1rem;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            padding: 2rem 2rem 2.5rem;
+        }
+        .header {
+            border-bottom: 3px solid #e2e8f0;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+        }
+        .header h1 small {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            color: #475569;
+            margin-top: 0.25rem;
+            letter-spacing: 0;
+        }
+        .athlete-meta {
+            background: #f1f5f9;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1e293b;
+        }
+        .athlete-meta span {
+            font-weight: 400;
+            color: #475569;
+        }
+        .summary {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem 3rem;
+            border: 1px solid #e9edf2;
+        }
+        .summary-item {
+            display: flex;
+            align-items: baseline;
+            gap: 0.3rem;
+        }
+        .summary-item .label {
+            font-weight: 600;
+            color: #334155;
+        }
+        .summary-item .value {
+            color: #0f172a;
+        }
+
+        .phase-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #dbeafe;
+            color: #0f172a;
+        }
+        .phase-title small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #475569;
+            margin-left: 0.5rem;
+        }
+        .session-sub {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e40af;
+            background: #dbeafe;
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            margin-bottom: 1.2rem;
+        }
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .exercise-card {
+            background: #ffffff;
+            border: 1px solid #eef2f6;
+            border-radius: 18px;
+            padding: 1.5rem 1.5rem 1.8rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+        .exercise-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+        .exercise-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            margin-bottom: 0.75rem;
+        }
+        .exercise-desc {
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #334155;
+            margin-bottom: 0.75rem;
+            flex: 1;
+        }
+        .exercise-desc strong {
+            color: #0f172a;
+        }
+        .sets-reps {
+            background: #f1f5f9;
+            border-radius: 30px;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1e293b;
+            display: inline-block;
+            margin: 0.4rem 0 0.7rem;
+            align-self: flex-start;
+        }
+        .sets-reps span {
+            font-weight: 400;
+            color: #475569;
+        }
+        .note-box {
+            font-size: 0.85rem;
+            color: #475569;
+            background: #f8fafc;
+            padding: 0.5rem 0.8rem;
+            border-radius: 10px;
+            border-left: 3px solid #94a3b8;
+            margin-top: 0.3rem;
+        }
+        .note-box.warning {
+            border-left-color: #eab308;
+            background: #fefce8;
+            color: #713f12;
+        }
+        .note-box.important {
+            border-left-color: #dc2626;
+            background: #fef2f2;
+            color: #7f1d1d;
+        }
+        .badge {
+            background: #dc2626;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.15rem 0.6rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-left: 0.4rem;
+            letter-spacing: 0.04em;
+        }
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2563eb;
+            text-decoration: none;
+            border: 1px solid #dbeafe;
+            background: #f8faff;
+            padding: 0.3rem 1rem 0.3rem 0.9rem;
+            border-radius: 40px;
+            transition: background 0.15s;
+            margin-top: 0.6rem;
+            width: fit-content;
+        }
+        .video-link:hover {
+            background: #eff6ff;
+            border-color: #93b5f0;
+        }
+        .video-link::before {
+            content: "▶";
+            font-size: 0.7rem;
+            color: #2563eb;
+        }
+        .footer-note {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px dashed #e2e8f0;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        .footer-note strong {
+            color: #0f172a;
+        }
+        .footer-note ul {
+            margin-top: 0.5rem;
+            margin-left: 1.2rem;
+            line-height: 1.7;
+            list-style-type: disc;
+        }
+        .footer-note .highlight-box {
+            background: #f1f5f9;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            margin-top: 0.8rem;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0.3in;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                border-radius: 0;
+            }
+            .exercise-card {
+                border: 1px solid #ccc;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none;
+            }
+            .exercise-grid {
+                gap: 1.2rem;
+            }
+            .video-link {
+                color: #1a4b8c;
+                border-color: #b3c9e8;
+                background: #f4f8ff;
+            }
+            .phase-title {
+                border-bottom-color: #b3c9e8;
+            }
+            .badge {
+                background: #b91c1c;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.25rem;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+            .summary {
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                🏋️ Triathlon Strength & Conditioning
+                <small>Gym support for swim · bike · run</small>
+            </h1>
+            <div class="athlete-meta">
+                🏊‍♂️🚴‍♂️🏃 Triathlete &nbsp;|&nbsp; ⏱️ ~45 min / session &nbsp;|&nbsp; 🏋️ 2× / week
+            </div>
+        </div>
+
+        <!-- Program overview -->
+        <div class="summary">
+            <div class="summary-item"><span class="label">Frequency:</span><span class="value">2 sessions / week</span></div>
+            <div class="summary-item"><span class="label">Duration:</span><span class="value">~45 min each</span></div>
+            <div class="summary-item"><span class="label">Equipment:</span><span class="value">Dumbbells, cable, barbell, plyo box</span></div>
+            <div class="summary-item"><span class="label">Key Focus:</span><span class="value">Injury prevention + power endurance</span></div>
+        </div>
+
+        <!-- ===================== SECTION: STANDARD SESSIONS ===================== -->
+        <h2 class="phase-title">Standard Sessions <small>— Base phase (weeks 1–4, 7–8, 12+ )</small></h2>
+
+        <!-- Session A -->
+        <div class="session-sub">Tuesday · Strength A — Lower Body & Injury Prevention</div>
+        <div class="exercise-grid">
+
+            <div class="exercise-card">
+                <div class="exercise-name">Goblet Squat</div>
+                <div class="exercise-tag">lower body · compound</div>
+                <div class="sets-reps">3 × 10–12</div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> General leg strength for bike power and run resilience.
+                    <br /><strong>Equipment:</strong> Dumbbell / kettlebell (or leg press alternative).
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=BR4tlEE_A98" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Single‑Leg Romanian Deadlift</div>
+                <div class="exercise-tag">unilateral · posterior chain</div>
+                <div class="sets-reps">3 × 8–10 <span>/ leg</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Single‑leg stability & posterior chain strength – directly supports running form.
+                    <br /><strong>Equipment:</strong> Dumbbells.
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=fkej6PUmvmc" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Eccentric Heel Drop <span class="badge">non‑negotiable</span></div>
+                <div class="exercise-tag">calf · tendon resilience</div>
+                <div class="sets-reps">3 × 12–15 <span>/ leg</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> The single best exercise for plantar fasciitis and calf injury history. Do this every gym session.
+                    <br /><strong>Equipment:</strong> Step or box.
+                </div>
+                <div class="note-box important">⚠️ Do this every gym session – non‑negotiable for your injury history.</div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=3tc0lN_bW5o" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Side Plank</div>
+                <div class="exercise-tag">core · lateral stability</div>
+                <div class="sets-reps">3 × 30–45s <span>/ side</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Lateral core/hip stability – reduces compensations that drive calf strains.
+                    <br /><strong>Equipment:</strong> Bodyweight.
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=KeqFm_rwO3I" target="_blank">Watch demo</a>
+            </div>
+
+        </div>
+
+        <!-- Session B -->
+        <div class="session-sub" style="margin-top: 2.5rem;">Thursday · Strength B — Upper Body, Posture & Core</div>
+        <div class="exercise-grid">
+
+            <div class="exercise-card">
+                <div class="exercise-name">Seated Cable Row</div>
+                <div class="exercise-tag">upper back · posture</div>
+                <div class="sets-reps">3 × 10–12</div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Upper back strength supports swim catch and bike position over long rides.
+                    <br /><strong>Equipment:</strong> Cable row machine (or lat pulldown alternative).
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=OeLb503NZHk" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Barbell / Dumbbell Hip Thrust</div>
+                <div class="exercise-tag">glutes · posterior chain</div>
+                <div class="sets-reps">3 × 10–12</div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Glute strength for run power and bike torque – complements the single‑leg RDL.
+                    <br /><strong>Equipment:</strong> Barbell + bench, or hip thrust machine.
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=pF17m_CXfL0" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Standing Dumbbell Shoulder Press</div>
+                <div class="exercise-tag">shoulders · stability</div>
+                <div class="sets-reps">3 × 10</div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Shoulder stability and endurance for the swim leg.
+                    <br /><strong>Equipment:</strong> Dumbbells.
+                </div>
+                <!-- No video provided in original doc -->
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Front Plank</div>
+                <div class="exercise-tag">core · endurance</div>
+                <div class="sets-reps">3 × 30–60s</div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> General core endurance to hold form when fatigued late in a race.
+                    <br /><strong>Equipment:</strong> Bodyweight.
+                </div>
+                <!-- No video provided in original doc -->
+            </div>
+
+        </div>
+
+        <!-- ===================== SECTION: POWER SESSIONS ===================== -->
+        <h2 class="phase-title">Power & Max‑Strength Sessions <small>— Build / Peak (weeks 6, 9, 11) – rotate in place of A/B</small></h2>
+
+        <!-- Session C -->
+        <div class="session-sub">Tuesday · Strength C — Lower Body Power & Max Strength</div>
+        <div class="exercise-grid">
+
+            <div class="exercise-card">
+                <div class="exercise-name">Trap Bar Deadlift</div>
+                <div class="exercise-tag">heavy · full posterior chain</div>
+                <div class="sets-reps">4–5 × 4–6 <span>(heavy)</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Your single best lift for max lower‑body strength – transfers directly to bike torque and running push‑off.
+                    <br /><strong>Equipment:</strong> Trap / hex bar.
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=WzvsIU9FW60" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Bulgarian Split Squat (weighted)</div>
+                <div class="exercise-tag">unilateral · quads / glutes</div>
+                <div class="sets-reps">3 × 6–8 <span>/ leg</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Unilateral strength that mirrors pedalling and running – exposes and corrects left/right imbalances.
+                    <br /><strong>Equipment:</strong> Dumbbells + bench.
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=yewlXtRs3K4" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Box Jump</div>
+                <div class="exercise-tag">plyometric · explosive</div>
+                <div class="sets-reps">3–4 × 4–5 <span>(full recovery)</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Builds explosive power and running economy via the stretch‑shortening cycle.
+                    <br /><strong>Equipment:</strong> Plyo box.
+                </div>
+                <div class="note-box warning">⚠️ CAUTION: Only add this once your feet have been symptom‑free for a few weeks. Start low, stop immediately if arch discomfort appears. Regress to step‑ups if in doubt.</div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=G-bxQY57mKc" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Standing Calf Raise (loaded)</div>
+                <div class="exercise-tag">calf · power‑endurance</div>
+                <div class="sets-reps">3–4 × 8–10</div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Power‑endurance for the calf/ankle complex, on top of the eccentric heel drop.
+                    <br /><strong>Equipment:</strong> Calf raise machine or barbell.
+                </div>
+                <div class="note-box warning">⚠️ CAUTION: Your calf strains have flared when speed work sits too close to loading. Progress weight gradually and never push through sharp pain.</div>
+                <!-- No video provided in original doc -->
+            </div>
+
+        </div>
+
+        <!-- Session D -->
+        <div class="session-sub" style="margin-top: 2.5rem;">Thursday · Strength D — Posterior Chain, Full‑Body & Rotational Core</div>
+        <div class="exercise-grid">
+
+            <div class="exercise-card">
+                <div class="exercise-name">Barbell Romanian Deadlift</div>
+                <div class="exercise-tag">heavy · hip hinge</div>
+                <div class="sets-reps">4 × 6–8 <span>(heavy)</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Bilateral hip‑hinge strength – builds the hamstring/glute power behind both your running stride and pedal stroke.
+                    <br /><strong>Equipment:</strong> Barbell.
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=lKLYvNGz6mk" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Weighted Walking Lunge</div>
+                <div class="exercise-tag">unilateral · strength‑endurance</div>
+                <div class="sets-reps">3 × 10 <span>/ leg</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Unilateral strength‑endurance that closely mimics the running gait cycle under load.
+                    <br /><strong>Equipment:</strong> Dumbbells.
+                </div>
+                <!-- No video provided in original doc -->
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Pallof Press</div>
+                <div class="exercise-tag">core · anti‑rotation</div>
+                <div class="sets-reps">3 × 10–12 <span>/ side</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Anti‑rotation core strength – keeps your torso stable and efficient when form breaks down late in a long ride or run.
+                    <br /><strong>Equipment:</strong> Cable machine.
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=dBAmQ9bx3JA" target="_blank">Watch demo</a>
+            </div>
+
+            <div class="exercise-card">
+                <div class="exercise-name">Farmer's Carry</div>
+                <div class="exercise-tag">full‑body · grip · bracing</div>
+                <div class="sets-reps">3 × 30–40m <span>(heavy)</span></div>
+                <div class="exercise-desc">
+                    <strong>Why:</strong> Grip, posture and full‑body bracing – carries over directly to holding an aero position or good running posture deep into a race.
+                    <br /><strong>Equipment:</strong> Dumbbells or kettlebells.
+                </div>
+                <a class="video-link" href="https://www.youtube.com/watch?v=VBobkldqqvk" target="_blank">Watch demo</a>
+            </div>
+
+        </div>
+
+        <!-- ===================== FOOTER: PHILOSOPHY & NOTES ===================== -->
+        <div class="footer-note">
+            <strong>📌 Rep Range Philosophy – Heavy vs. Light for Endurance Athletes</strong>
+            <div class="highlight-box">
+                <p><strong>Compound lifts (squat, deadlift, hip thrust):</strong> Heavier and lower‑reps (4–8) builds maximum strength and neuromuscular power with minimal added muscle mass – added mass is pure cost for an endurance athlete. Research consistently shows heavy, low‑rep work improves running and cycling economy without the bulk of higher‑rep hypertrophy work.</p>
+                <p style="margin-top: 0.5rem;"><strong>Unilateral, prehab & stability work (single‑leg RDL, heel drops, planks, Pallof press):</strong> Keep at moderate‑to‑high reps (10–15, or time‑based) – these are about motor control, tendon resilience and muscular endurance. Lighter loads done well matter more than heavy loads done badly.</p>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <strong>🔄 Practical progression through your plan:</strong>
+                <ul>
+                    <li><strong>Base phase (weeks 1–4, Sessions A/B):</strong> Moderate reps 10–15, lighter loads – conditions tendons and grooves movement patterns.</li>
+                    <li><strong>Build / Peak phases (weeks 6, 9, 11 – rotate in C/D):</strong> Heavier loads, lower reps (4–8) on big lifts, while keeping prehab exercises at their usual higher reps.</li>
+                    <li><strong>Recovery weeks (4, 8, 12) & Taper (13–16):</strong> Drop back to light loads and movement maintenance only – no heavy lifting in the two weeks before Tinman.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <strong>⚠️ Injury‑history notes (plantar fasciitis & calf strains):</strong>
+                <ul>
+                    <li><strong>Plantar fasciitis (since 2025):</strong> Keep the <strong>eccentric heel drop</strong> in every single gym session. Stop immediately if it produces sharp arch pain (mild tendon‑loading discomfort is normal, sharp pain is not).</li>
+                    <li><strong>Calf strains:</strong> These have historically flared when speed work sits too close to running sessions. Track/hill sessions in this plan are always followed by an easy or rest day – don't reorder the week without keeping that buffer.</li>
+                    <li><strong>During recovery weeks,</strong> strength load drops to mobility/activation only – this is deliberate, not something to ‘make up’.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div><!-- end container -->
+</body>
+</html>
