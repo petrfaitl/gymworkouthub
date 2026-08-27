@@ -423,7 +423,7 @@
 
         <!-- ─── FOOTER ─── -->
         <div class="footer">
-            <span>💪 <span id="countBadge">5</span> workouts</span>
+            <span>💪 <span id="countWorkout">5 workouts</span></span>
             <span>📱 tap to open</span>
             <span>⚡ more coming</span>
         </div>
@@ -538,7 +538,8 @@
 
                 // Update badge
                 countBadge.textContent = count + ' plan' + (count !== 1 ? 's' : '');
-
+                countWorkout.textContent = count + ' workout' + (count !== 1 ? 's' : '');
+                
                 if (count === 0) {
                     grid.innerHTML = '';
                     emptyState.style.display = 'block';
