@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Endurance Cyclist – Gym Backup Plan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      background: #f5f7fa;
+      padding: 1rem 0.8rem;
+      color: #1e293b;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      padding: 1.5rem 1.2rem 2rem;
+    }
+
+    /* Header */
+    .header {
+      border-bottom: 3px solid #e2e8f0;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      line-height: 1.2;
+    }
+    .header h1 small {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #475569;
+      margin-top: 0.2rem;
+    }
+    .athlete-meta {
+      background: #f1f5f9;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1e293b;
+      display: inline-block;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .athlete-meta span {
+      font-weight: 400;
+      color: #475569;
+    }
+
+    /* Summary */
+    .summary {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 0.8rem 1.2rem;
+      margin-bottom: 1.8rem;
+      border: 1px solid #e9edf2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      font-size: 0.9rem;
+    }
+    .summary-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+    .summary-item .label {
+      font-weight: 600;
+      color: #334155;
+    }
+
+    /* Section titles */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 2rem 0 0.6rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 3px solid #dbeafe;
+      color: #0f172a;
+    }
+    .section-title small {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: #475569;
+      margin-left: 0.4rem;
+    }
+    .session-sub {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1e40af;
+      background: #dbeafe;
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      margin: 1rem 0 0.8rem;
+    }
+    .note-box {
+      background: #fefce8;
+      border-left: 5px solid #facc15;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: #713f12;
+      margin: 0.6rem 0 1rem;
+    }
+    .note-box strong {
+      color: #422006;
+    }
+    .warning-box {
+      background: #fef2f2;
+      border-left: 5px solid #dc2626;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      color: #7f1d1d;
+      margin: 0.6rem 0 1rem;
+    }
+
+    /* Exercise grid (cards) */
+    .exercise-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .exercise-card {
+      background: #ffffff;
+      border: 1px solid #eef2f6;
+      border-radius: 16px;
+      padding: 1rem 1rem 1.2rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+    .exercise-name {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #0f172a;
+      margin-bottom: 0.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .exercise-name .badge {
+      background: #dc2626;
+      color: white;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.1rem 0.6rem;
+      border-radius: 20px;
+      letter-spacing: 0.03em;
+      margin-left: 0.4rem;
+    }
+    .exercise-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #1e40af;
+      background: #dbeafe;
+      padding: 0.1rem 0.7rem;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 0.3rem;
+      width: fit-content;
+    }
+    .sets-reps {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 0.3rem 0 0.4rem;
+    }
+    .sets-reps span {
+      font-weight: 400;
+      color: #475569;
+    }
+    .exercise-desc {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #334155;
+      margin-bottom: 0.4rem;
+    }
+    .exercise-desc strong {
+      color: #0f172a;
+    }
+    .weight-suggestion {
+      background: #f1f5f9;
+      border-radius: 30px;
+      padding: 0.15rem 0.8rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1e293b;
+      display: inline-block;
+      margin: 0.2rem 0 0.3rem;
+      align-self: flex-start;
+    }
+    .weight-suggestion span {
+      font-weight: 400;
+      color: #475569;
+    }
+    .video-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #2563eb;
+      text-decoration: none;
+      border: 1px solid #dbeafe;
+      background: #f8faff;
+      padding: 0.15rem 0.8rem 0.15rem 0.6rem;
+      border-radius: 40px;
+      transition: background 0.15s;
+      margin-top: 0.4rem;
+      width: fit-content;
+    }
+    .video-link::before {
+      content: "▶";
+      font-size: 0.6rem;
+      color: #2563eb;
+    }
+    .video-link:hover {
+      background: #eff6ff;
+      border-color: #93b5f0;
+    }
+
+    /* Bad-weather circuit specific layout */
+    .circuit-round {
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 0.8rem 1rem;
+      margin: 0.8rem 0 1.2rem;
+      border: 1px dashed #94a3b8;
+      font-size: 0.9rem;
+    }
+    .circuit-round strong {
+      color: #0f172a;
+    }
+
+    @media (min-width: 600px) {
+      .exercise-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media print {
+      body { background: white; padding: 0.2in; }
+      .container { box-shadow: none; border-radius: 0; padding: 0; }
+      .exercise-card { border: 1px solid #ccc; break-inside: avoid; }
+      .video-link { color: #1a4b8c; border-color: #b3c9e8; background: #f4f8ff; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>
+      🚴 Endurance Cyclist – Gym Backup Plan
+      <small>160 km Challenge · weather‑proof training</small>
+    </h1>
+    <div class="athlete-meta">
+      📏 185 cm · ⚖️ 76 kg · 🧑 50 yrs · ⚡ FTP 260 W · ❤️ VO₂max 56
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <div class="summary-item"><span class="label">Goal:</span> Maintain bike‑specific strength when outdoor rides aren’t possible</div>
+    <div class="summary-item"><span class="label">Frequency:</span> 2–3× / week (substitute for missed rides)</div>
+    <div class="summary-item"><span class="label">Duration:</span> 45–60 min</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SESSION A – CORE STRENGTH -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Session A — Core Strength <small>Lower Body & Core</small></h2>
+  <div class="note-box"><strong>Why:</strong> Builds pedalling power, glute drive, and saddle endurance – the foundation for 4+ hours on the bike.</div>
+
+  <div class="exercise-grid">
+    <div class="exercise-card">
+      <div class="exercise-name">Goblet Squat</div>
+      <div class="exercise-tag">quads · glutes</div>
+      <div class="sets-reps">3 × 10–12</div>
+      <div class="exercise-desc"><strong>How:</strong> Hold a dumbbell vertically against your chest, squat to parallel, keep chest up.</div>
+      <div class="weight-suggestion">⚖️ <span>12–16 kg</span> (dumbbell)</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=BR4tlEE_A98" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Romanian Deadlift (RDL)</div>
+      <div class="exercise-tag">hamstrings · glutes · lower back</div>
+      <div class="sets-reps">3 × 10–12</div>
+      <div class="exercise-desc"><strong>How:</strong> Hinge at hips, keep back flat, lower barbell/dumbbells along shins, drive hips forward.</div>
+      <div class="weight-suggestion">⚖️ <span>20–30 kg</span> barbell <em>or</em> 2 × 12–16 kg dumbbells</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=lKLYvNGz6mk" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Single‑Leg Press <em>or</em> Bulgarian Split Squat</div>
+      <div class="exercise-tag">unilateral · pedal‑stroke mimic</div>
+      <div class="sets-reps">3 × 8–10 <span>/ leg</span></div>
+      <div class="exercise-desc"><strong>How:</strong> Isolate each leg to correct imbalances – mirror the single‑leg nature of pedalling.</div>
+      <div class="weight-suggestion">⚖️ <span>40–60 kg</span> leg press <em>or</em> 2 × 8–10 kg dumbbells (split squat)</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=yewlXtRs3K4" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Lying Leg Curl <em>or</em> Nordic Curl (assisted)</div>
+      <div class="exercise-tag">hamstrings · knee health</div>
+      <div class="sets-reps">3 × 10–12</div>
+      <div class="exercise-desc"><strong>How:</strong> Direct hamstring work to balance quads and protect knees during high‑cadence efforts.</div>
+      <div class="weight-suggestion">⚖️ <span>25–35 kg</span> machine <em>or</em> bodyweight (Nordic)</div>
+      <a class="video-link" href="https://www.youtube.com/results?search_query=lying+leg+curl+machine" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Standing Calf Raise (straight knee)</div>
+      <div class="exercise-tag">gastrocnemius · ankle stability</div>
+      <div class="sets-reps">3 × 15–20</div>
+      <div class="exercise-desc"><strong>How:</strong> Stand on a step, rise onto toes, squeeze, lower slowly – key for the downstroke.</div>
+      <div class="weight-suggestion">⚖️ <span>15–25 kg</span> barbell across shoulders</div>
+      <a class="video-link" href="https://www.youtube.com/results?search_query=standing+barbell+calf+raise" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Seated Calf Raise (bent knee)</div>
+      <div class="exercise-tag">soleus · pedalling efficiency</div>
+      <div class="sets-reps">3 × 15–20</div>
+      <div class="exercise-desc"><strong>How:</strong> Sit with knees bent, place dumbbell on thighs, rise onto toes – targets the soleus muscle.</div>
+      <div class="weight-suggestion">⚖️ <span>10–15 kg</span> dumbbell on thighs</div>
+      <a class="video-link" href="https://www.youtube.com/results?search_query=seated+dumbbell+calf+raise" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Front Plank</div>
+      <div class="exercise-tag">core · aero stability</div>
+      <div class="sets-reps">3 × 45–60s</div>
+      <div class="exercise-desc"><strong>How:</strong> Forearms on floor, body straight, brace core – holds your aero position.</div>
+      <div class="weight-suggestion">⚖️ Bodyweight</div>
+      <!-- no specific video needed -->
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Side Plank</div>
+      <div class="exercise-tag">lateral core · hip stability</div>
+      <div class="sets-reps">3 × 30–45s <span>/ side</span></div>
+      <div class="exercise-desc"><strong>How:</strong> Prop on elbow, lift hips, keep straight – reduces saddle rocking.</div>
+      <div class="weight-suggestion">⚖️ Bodyweight</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=KeqFm_rwO3I" target="_blank">Watch demo</a>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SESSION B – SUPPORTING (UPPER BODY) -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Session B — Supporting Strength <small>Upper Body & Posture (1× / week)</small></h2>
+  <div class="note-box"><strong>Why:</strong> Keeps shoulders relaxed, chest open, and torso stable – reducing fatigue in the aero position.</div>
+
+  <div class="exercise-grid">
+    <div class="exercise-card">
+      <div class="exercise-name">Seated Cable Row</div>
+      <div class="exercise-tag">upper back · posture</div>
+      <div class="sets-reps">3 × 10–12</div>
+      <div class="exercise-desc"><strong>How:</strong> Pull handle to stomach, squeeze shoulder blades – counteracts rounded shoulders.</div>
+      <div class="weight-suggestion">⚖️ <span>20–30 kg</span> cable stack</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=OeLb503NZHk" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Dumbbell Shoulder Press</div>
+      <div class="exercise-tag">shoulders · endurance</div>
+      <div class="sets-reps">3 × 10</div>
+      <div class="exercise-desc"><strong>How:</strong> Press dumbbells overhead from shoulders, keep core tight – builds handlebar endurance.</div>
+      <div class="weight-suggestion">⚖️ <span>8–12 kg</span> each hand</div>
+      <a class="video-link" href="https://www.youtube.com/results?search_query=dumbbell+shoulder+press" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Face Pulls</div>
+      <div class="exercise-tag">rotator cuff · rear delts</div>
+      <div class="sets-reps">3 × 12–15</div>
+      <div class="exercise-desc"><strong>How:</strong> Pull rope attachment toward your face, externally rotate shoulders – essential for shoulder health.</div>
+      <div class="weight-suggestion">⚖️ <span>10–15 kg</span> (light, controlled)</div>
+      <a class="video-link" href="https://youtu.be/3pToT5_DUiY?si=aLwlfqn2Qr5yoaSJ" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Pallof Press</div>
+      <div class="exercise-tag">anti‑rotation · core</div>
+      <div class="sets-reps">3 × 10 <span>/ side</span></div>
+      <div class="exercise-desc"><strong>How:</strong> Stand perpendicular to cable, press handle straight out, hold against rotational force.</div>
+      <div class="weight-suggestion">⚖️ <span>10–15 kg</span> cable stack</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=dBAmQ9bx3JA" target="_blank">Watch demo</a>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SESSION C – BAD‑WEATHER ALTERNATIVE (standalone) -->
+  <!-- ============================================================ -->
+  <h2 class="section-title">Session C — Bad‑Weather Alternative <small>missed 4‑hr ride substitute</small></h2>
+  <div class="warning-box">
+    <strong>🌧️ Use this when:</strong> weather or schedule forces you to skip a long outdoor ride, and you can’t get on the turbo trainer.
+    <br /><strong>Goal:</strong> Combine muscular endurance + aerobic stimulus to keep your 160 km prep on track.
+  </div>
+
+  <div style="background: #f1f5f9; border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: 1.2rem;">
+    <p style="font-weight: 600; margin-bottom: 0.3rem;">⏱️ Session outline:</p>
+    <ul style="margin-left: 1.2rem; line-height: 1.7; list-style-type: disc;">
+      <li><strong>Warm‑up:</strong> 10 min stationary bike (easy spin, Z1, < 140 W)</li>
+      <li><strong>Main circuit:</strong> 4–5 rounds of the exercises below (<strong>all weights listed here</strong>), with 60 s rest between rounds</li>
+      <li><strong>Finish:</strong> 15–20 min stationary bike @ <strong>Z3 tempo (195–215 W)</strong>, RPE 6–7/10</li>
+    </ul>
+  </div>
+
+  <div class="session-sub">Circuit exercises (repeat 4–5×)</div>
+  <div class="exercise-grid">
+
+    <div class="exercise-card">
+      <div class="exercise-name">Goblet Squat</div>
+      <div class="exercise-tag">quads · glutes</div>
+      <div class="sets-reps">12 reps</div>
+      <div class="exercise-desc"><strong>Form:</strong> Dumbbell against chest, squat deep, drive up.</div>
+      <div class="weight-suggestion">⚖️ <span>12–16 kg</span> (single dumbbell)</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=BR4tlEE_A98" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Dumbbell RDL</div>
+      <div class="exercise-tag">hamstrings · glutes</div>
+      <div class="sets-reps">12 reps</div>
+      <div class="exercise-desc"><strong>Form:</strong> Hinge at hips, lower dumbbells along shins, feel the stretch, drive up.</div>
+      <div class="weight-suggestion">⚖️ <span>2 × 12–16 kg</span> (dumbbells)</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=fkej6PUmvmc" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Walking Lunge</div>
+      <div class="exercise-tag">unilateral · balance</div>
+      <div class="sets-reps">10 reps <span>/ leg</span></div>
+      <div class="exercise-desc"><strong>Form:</strong> Step forward into a deep lunge, drive back up, alternate legs – mimics pedal stroke loading.</div>
+      <div class="weight-suggestion">⚖️ <span>2 × 8–10 kg</span> (dumbbells by sides)</div>
+      <a class="video-link" href="https://www.youtube.com/results?search_query=dumbbell+walking+lunge" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Standing Calf Raise</div>
+      <div class="exercise-tag">calf · ankle</div>
+      <div class="sets-reps">20 reps</div>
+      <div class="exercise-desc"><strong>Form:</strong> On a step, rise onto toes, squeeze, lower slowly. Hold a dumbbell if needed.</div>
+      <div class="weight-suggestion">⚖️ <span>15–20 kg</span> (single dumbbell at side) <em>or</em> barbell 15–25 kg</div>
+      <a class="video-link" href="https://www.youtube.com/results?search_query=standing+calf+raise+dumbbell" target="_blank">Watch demo</a>
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Front Plank</div>
+      <div class="exercise-tag">core · aero hold</div>
+      <div class="sets-reps">30 s</div>
+      <div class="exercise-desc"><strong>Form:</strong> Body straight, core braced, don’t let hips sag.</div>
+      <div class="weight-suggestion">⚖️ Bodyweight</div>
+      <!-- no video needed -->
+    </div>
+
+    <div class="exercise-card">
+      <div class="exercise-name">Side Plank</div>
+      <div class="exercise-tag">lateral core</div>
+      <div class="sets-reps">30 s <span>/ side</span></div>
+      <div class="exercise-desc"><strong>Form:</strong> Elbow under shoulder, lift hips, hold steady.</div>
+      <div class="weight-suggestion">⚖️ Bodyweight</div>
+      <a class="video-link" href="https://www.youtube.com/watch?v=KeqFm_rwO3I" target="_blank">Watch demo</a>
+    </div>
+
+  </div>
+
+  <div style="background: #e0f2fe; border-radius: 14px; padding: 0.8rem 1.2rem; margin: 0.8rem 0 1.5rem; border-left: 5px solid #0284c7;">
+    <strong>🚴 Finish on the bike:</strong> After the circuit, do <strong>15–20 min at Z3 tempo (195–215 W)</strong> on a stationary bike. This ensures you get the aerobic stimulus you’d have had from the missed outdoor ride. Keep cadence 85–95 rpm.
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- PROGRESSION & LOAD NOTES -->
+  <!-- ============================================================ -->
+  <div style="background: #f1f5f9; border-radius: 14px; padding: 1rem 1.2rem; margin-top: 2rem; font-size: 0.9rem;">
+    <strong>📈 Progression & load guidelines (76 kg athlete):</strong>
+    <ul style="margin-top: 0.5rem; margin-left: 1.2rem; line-height: 1.7; list-style-type: disc;">
+      <li><strong>Start at the lower end</strong> of each weight range. Add 2–5 kg per week only when you complete all reps with perfect form.</li>
+      <li><strong>RPE 7–8</strong> (out of 10) on the last 2 reps of each set is the sweet spot – challenging but not maxing out.</li>
+      <li><strong>On weeks with 3 outdoor rides</strong>, do only 1–2 gym sessions (prioritise recovery).</li>
+      <li><strong>On poor‑weather weeks</strong>, you can replace <strong>one missed ride</strong> with Session C, or do Session A + 30 min of hard intervals on the stationary bike.</li>
+      <li><strong>Taper:</strong> Reduce gym volume by ~30% in the final 7–10 days before your 160 km event – fresh legs win on race day.</li>
+    </ul>
+  </div>
+
+  <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 0.8rem; text-align: center;">
+    ⏱️ Sessions A & B: ~45–60 min · Session C: ~50 min (including bike warm‑up & finish)
+  </div>
+
+</div>
+</body>
+</html>
