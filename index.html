@@ -407,6 +407,7 @@
             <span class="filter-chip" data-filter="legs">🦵 Legs</span>
             <span class="filter-chip" data-filter="runner">🏃 Runner</span>
             <span class="filter-chip" data-filter="tri">🚴 Tri</span>
+            <span class="filter-chip" data-filter="cyclist">🚴 Cyclist</span>
             <span class="filter-chip" data-filter="swim">🏊 Swim</span>
         </div>
 
@@ -451,6 +452,14 @@
                 type: 'runner',
                 tags: ['Running', 'Injury Prevention', 'Unilateral'],
                 emoji: '🏃'
+            },{
+                id: 'cyclist',
+                title: "Endurance Cyclist – Gym Backup Plan",
+                desc: 'Cycling Challenge · weather-proof training',
+                file: 'endurance_cyclist_plan.html',
+                type: 'cyclist',
+                tags: ['Cycling', 'Gym', 'Strength'],
+                emoji: '🚴'
             }, {
                 id: 'triathlon',
                 title: 'Triathlon S&C',
@@ -509,6 +518,7 @@
                     legs: '🦵 Legs',
                     runner: '🏃 Runner',
                     tri: '🚴 Tri',
+                    cyclist: '🚴 Cyclist',
                     swim: '🏊 Swim',
                     other: '📌 Other'
                 };
@@ -519,6 +529,7 @@
                 const map = {
                     legs: 'type-legs',
                     runner: 'type-runner',
+                    cyclist: 'type-cyclist', 
                     tri: 'type-tri',
                     swim: 'type-swim'
                 };
