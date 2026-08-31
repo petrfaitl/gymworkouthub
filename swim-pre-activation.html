@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Swim Pre‑activation Plan • 15 min</title>
+    <style>
+        /* ----- reset & base ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #eef6fc 0%, #dce9f2 100%);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .plan-card {
+            max-width: 1000px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(6px);
+            border-radius: 3rem 3rem 2.5rem 2.5rem;
+            box-shadow: 0 20px 60px rgba(4, 40, 70, 0.18), 0 8px 24px rgba(0, 20, 40, 0.08);
+            padding: 2.5rem 2.8rem 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.2s;
+        }
+
+        /* ----- header ----- */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 2.2rem;
+            border-bottom: 2px solid rgba(0, 80, 130, 0.12);
+            padding-bottom: 1.2rem;
+        }
+
+        .header-left h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0a2a3f;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header-left h1 span {
+            background: #0a2a3f;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.2rem 0.9rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+
+        .header-left .sub {
+            font-size: 1rem;
+            color: #2e5779;
+            margin-top: 0.25rem;
+            font-weight: 450;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .header-left .sub svg {
+            opacity: 0.6;
+        }
+
+        .timer-badge {
+            background: #0a2a3f;
+            color: #fff;
+            padding: 0.6rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(10, 42, 63, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .timer-badge small {
+            font-weight: 400;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* ----- phase tabs ----- */
+        .phase-tabs {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .phase-tab {
+            background: rgba(10, 42, 63, 0.06);
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1a4058;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .phase-tab.active {
+            background: #0a2a3f;
+            color: #fff;
+            border-color: #0a2a3f;
+            box-shadow: 0 4px 12px rgba(10, 42, 63, 0.20);
+        }
+
+        .phase-tab .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.5;
+        }
+
+        .phase-tab.active .dot {
+            opacity: 1;
+            background: #7fc9ff;
+        }
+
+        /* ----- exercise grid ----- */
+        .phase-content {
+            display: block;
+        }
+
+        .phase-content .phase-panel {
+            display: none;
+            animation: fadeUp 0.35s ease;
+        }
+
+        .phase-content .phase-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.2rem;
+            margin-top: 0.4rem;
+        }
+
+        .exercise-item {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.4rem 1.4rem;
+            box-shadow: 0 4px 14px rgba(0, 30, 50, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .exercise-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 40, 70, 0.10);
+            border-color: rgba(10, 42, 63, 0.15);
+        }
+
+        .exercise-item .name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0a2a3f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .exercise-item .name .time {
+            font-weight: 600;
+            font-size: 0.8rem;
+            background: #e4eef7;
+            padding: 0.15rem 0.8rem;
+            border-radius: 30px;
+            color: #1a4a6a;
+            letter-spacing: 0.2px;
+        }
+
+        .exercise-item .desc {
+            font-size: 0.9rem;
+            color: #1f4a66;
+            line-height: 1.4;
+            opacity: 0.85;
+        }
+
+        .exercise-item .cue {
+            font-size: 0.8rem;
+            color: #3f6f8f;
+            background: #f0f6fb;
+            padding: 0.35rem 0.8rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin-top: 0.2rem;
+            align-self: flex-start;
+            border: 1px solid rgba(0, 80, 130, 0.06);
+        }
+
+        .phase-summary {
+            margin-top: 1.8rem;
+            padding: 1rem 1.4rem;
+            background: rgba(10, 42, 63, 0.04);
+            border-radius: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            color: #1a4058;
+            border: 1px solid rgba(10, 42, 63, 0.06);
+        }
+
+        .phase-summary .total {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .phase-summary .total span {
+            background: #0a2a3f;
+            color: #fff;
+            padding: 0.1rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+        }
+
+        /* ----- footer / notes ----- */
+        .footer-note {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(10, 42, 63, 0.08);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.85rem;
+            color: #2e5779;
+        }
+
+        .footer-note .tips {
+            display: flex;
+            gap: 0.6rem 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-note .tips span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .footer-note .badge {
+            background: #0a2a3f;
+            color: #fff;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* ----- responsive ----- */
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            .plan-card {
+                padding: 1.6rem 1.2rem 2rem;
+                border-radius: 2rem;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+            }
+            .header-left h1 {
+                font-size: 1.6rem;
+                flex-wrap: wrap;
+            }
+            .timer-badge {
+                font-size: 1rem;
+                padding: 0.4rem 1.2rem;
+                align-self: flex-start;
+            }
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+            .phase-tabs {
+                gap: 0.4rem;
+            }
+            .phase-tab {
+                font-size: 0.75rem;
+                padding: 0.35rem 1rem;
+            }
+            .footer-note {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* small extra touch */
+        .water-emoji {
+            filter: drop-shadow(0 2px 4px rgba(0, 60, 120, 0.10));
+        }
+
+        .inline-icon {
+            display: inline-block;
+            width: 1.2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="plan-card">
+
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-left">
+                <h1>
+                    🏊 Pre‑activation
+                    <span>15 min</span>
+                </h1>
+                <div class="sub">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2e5779" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2v4M12 18v4M4 4l2 2M18 18l2 2M4 20l2-2M18 6l2-2M2 12h4M18 12h4" />
+                    </svg>
+                    dynamic warm‑up · activation · swim‑specific
+                </div>
+            </div>
+            <div class="timer-badge">
+                ⏱️ 15 <small>min</small>
+            </div>
+        </div>
+
+        <!-- PHASE TABS -->
+        <div class="phase-tabs">
+            <div class="phase-tab active" data-phase="1">
+                <span class="dot"></span> ① Mobility &nbsp;· 5′
+            </div>
+            <div class="phase-tab" data-phase="2">
+                <span class="dot"></span> ② Activation &nbsp;· 5′
+            </div>
+            <div class="phase-tab" data-phase="3">
+                <span class="dot"></span> ③ Swim‑specific &nbsp;· 5′
+            </div>
+        </div>
+
+        <!-- PHASE CONTENT -->
+        <div class="phase-content">
+
+            <!-- ===== PHASE 1 ===== -->
+            <div class="phase-panel active" data-phase="1">
+                <div class="exercise-grid">
+                    <div class="exercise-item">
+                        <div class="name">Neck rolls <span class="time">45″</span></div>
+                        <div class="desc">Slow, controlled circles – chin to chest, ear to shoulder.</div>
+                        <div class="cue">🌀 5 each direction</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Arm circles <span class="time">45″</span></div>
+                        <div class="desc">Forward &amp; backward, gradually increasing range.</div>
+                        <div class="cue">🔁 15 each way</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Torso twists <span class="time">45″</span></div>
+                        <div class="desc">Standing, rotate from the waist, arms loose.</div>
+                        <div class="cue">↔️ 10 each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Hip circles <span class="time">45″</span></div>
+                        <div class="desc">Hands on hips, big circles – open up the pelvis.</div>
+                        <div class="cue">🌀 8 each direction</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Leg swings (forward) <span class="time">45″</span></div>
+                        <div class="desc">Swing one leg forward &amp; back, hold support.</div>
+                        <div class="cue">🦵 12 each leg</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Leg swings (side) <span class="time">45″</span></div>
+                        <div class="desc">Lateral swings – adductors &amp; abductors.</div>
+                        <div class="cue">↔️ 12 each leg</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Ankle rotations <span class="time">45″</span></div>
+                        <div class="desc">Point &amp; flex, then circles – crucial for kick.</div>
+                        <div class="cue">🔄 10 each direction</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Deep squat hold <span class="time">30″</span></div>
+                        <div class="desc">Sink into a squat, hold, press knees out.</div>
+                        <div class="cue">🧘 hold &amp; breathe</div>
+                    </div>
+                </div>
+                <div class="phase-summary">
+                    <div class="total">⏱️ Phase total <span>~5 min</span></div>
+                    <div>💧 mobility · blood flow · range of motion</div>
+                </div>
+            </div>
+
+            <!-- ===== PHASE 2 ===== -->
+            <div class="phase-panel" data-phase="2">
+                <div class="exercise-grid">
+                    <div class="exercise-item">
+                        <div class="name">Band pull‑aparts <span class="time">45″</span></div>
+                        <div class="desc">Hold band at chest, pull apart, squeeze shoulder blades.</div>
+                        <div class="cue">💪 12–15 reps</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Scapular push‑ups <span class="time">45″</span></div>
+                        <div class="desc">In plank, retract &amp; protract shoulder blades.</div>
+                        <div class="cue">📐 10 slow reps</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Plank with shoulder taps <span class="time">45″</span></div>
+                        <div class="desc">High plank, tap opposite shoulder – keep hips stable.</div>
+                        <div class="cue">🤚 12 taps each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Bird dog <span class="time">45″</span></div>
+                        <div class="desc">All‑fours, extend opposite arm &amp; leg, hold.</div>
+                        <div class="cue">🐕 8 each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Glute bridge (single leg) <span class="time">45″</span></div>
+                        <div class="desc">Bridge up, extend one leg – squeeze glutes.</div>
+                        <div class="cue">🍑 10 each leg</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Banded lateral walks <span class="time">45″</span></div>
+                        <div class="desc">Band around ankles/legs, step sideways.</div>
+                        <div class="cue">🚶 10 steps each way</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Dead bug (core) <span class="time">45″</span></div>
+                        <div class="desc">On back, alternate arm &amp; leg – press low back down.</div>
+                        <div class="cue">🐞 10 each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Cossack squat <span class="time">30″</span></div>
+                        <div class="desc">Wide stance, shift side to side – open hips.</div>
+                        <div class="cue">🦵 6 each side</div>
+                    </div>
+                </div>
+                <div class="phase-summary">
+                    <div class="total">⏱️ Phase total <span>~5 min</span></div>
+                    <div>⚡ activation · stability · motor control</div>
+                </div>
+            </div>
+
+            <!-- ===== PHASE 3 ===== -->
+            <div class="phase-panel" data-phase="3">
+                <div class="exercise-grid">
+                    <div class="exercise-item">
+                        <div class="name">Standing lat stretch <span class="time">45″</span></div>
+                        <div class="desc">Clasp hands overhead, lean to each side.</div>
+                        <div class="cue">🌊 20″ each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Chest stretch (wall) <span class="time">45″</span></div>
+                        <div class="desc">Arm on wall, turn away – open pec &amp; shoulder.</div>
+                        <div class="cue">🧍 20″ each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Triceps stretch <span class="time">45″</span></div>
+                        <div class="desc">Reach one arm behind head, press elbow.</div>
+                        <div class="cue">💪 20″ each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Shoulder external rotation <span class="time">45″</span></div>
+                        <div class="desc">Band or towel – rotate shoulder outward, keep elbow fixed.</div>
+                        <div class="cue">🔄 10 each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Lunge with twist <span class="time">45″</span></div>
+                        <div class="desc">Forward lunge, rotate torso toward bent knee.</div>
+                        <div class="cue">🧘 8 each side</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Deep squat + reach <span class="time">45″</span></div>
+                        <div class="desc">Squat, reach arms overhead, then sweep down.</div>
+                        <div class="cue">⬆️⬇️ 6 slow reps</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Pec / shoulder opener <span class="time">45″</span></div>
+                        <div class="desc">Clasp hands behind back, lift and open chest.</div>
+                        <div class="cue">🙆 hold 20″</div>
+                    </div>
+                    <div class="exercise-item">
+                        <div class="name">Kneeling hip flexor stretch <span class="time">30″</span></div>
+                        <div class="desc">Lunge position, drive hip forward – feel the front.</div>
+                        <div class="cue">🦵 15″ each side</div>
+                    </div>
+                </div>
+                <div class="phase-summary">
+                    <div class="total">⏱️ Phase total <span>~5 min</span></div>
+                    <div>🏊 swim‑specific · length · rotation</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-note">
+            <div class="tips">
+                <span>💧 breathe steadily through each move</span>
+                <span>🧊 keep intensity moderate – warm, not fatigued</span>
+                <span>🎯 focus on form over speed</span>
+            </div>
+            <div class="badge"># swim ready</div>
+        </div>
+
+    </div>
+
+    <script>
+        (function() {
+            const tabs = document.querySelectorAll('.phase-tab');
+            const panels = document.querySelectorAll('.phase-panel');
+
+            function activatePhase(phaseId) {
+                // tabs
+                tabs.forEach(tab => {
+                    const tabPhase = tab.getAttribute('data-phase');
+                    if (tabPhase === phaseId) {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+
+                // panels
+                panels.forEach(panel => {
+                    const panelPhase = panel.getAttribute('data-phase');
+                    if (panelPhase === phaseId) {
+                        panel.classList.add('active');
+                    } else {
+                        panel.classList.remove('active');
+                    }
+                });
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const phase = this.getAttribute('data-phase');
+                    activatePhase(phase);
+                });
+            });
+
+            // keyboard / accessibility: allow Enter/Space on tabs
+            tabs.forEach(tab => {
+                tab.setAttribute('role', 'button');
+                tab.setAttribute('tabindex', '0');
+                tab.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const phase = this.getAttribute('data-phase');
+                        activatePhase(phase);
+                    }
+                });
+            });
+
+            // set initial active (already in HTML, but double‑check)
+            const activeTab = document.querySelector('.phase-tab.active');
+            if (activeTab) {
+                const phase = activeTab.getAttribute('data-phase');
+                // ensure panel matches
+                panels.forEach(p => {
+                    if (p.getAttribute('data-phase') === phase) {
+                        p.classList.add('active');
+                    } else {
+                        p.classList.remove('active');
+                    }
+                });
+            }
+        })();
+    </script>
+
+</body>
+</html>
