@@ -4,433 +4,94 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>💪 Workout Hub</title>
-    <style>
-        /* ── Reset & base ── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                    },
+                },
+            },
         }
-
+    </script>
+    <style>
+        /* Keep only base font and essential transitions that Tailwind doesn't handle natively for interactivity */
         body {
             font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
-            background: #0b0e12;
-            color: #e8edf2;
-            min-height: 100vh;
-            padding: 18px 16px 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
-
-        .container {
-            max-width: 600px;
-            width: 100%;
-        }
-
-        /* ── Header ── */
-        .header {
-            margin-bottom: 28px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #1f2a36;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .header-left h1 {
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #f0f4fa 0%, #7ec8f0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .header-left .sub {
-            font-size: 13px;
-            font-weight: 500;
-            color: #7a8a9e;
-            letter-spacing: 0.3px;
-            -webkit-text-fill-color: #7a8a9e;
-        }
-
-        .badge-count {
-            background: #1f2a36;
-            padding: 4px 14px;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 600;
-            color: #b0c4d9;
-            border: 1px solid #2d3b4a;
-            white-space: nowrap;
-        }
-
-        /* ── Search / filter ── */
-        .search-wrap {
-            margin-bottom: 22px;
-            position: relative;
-        }
-
-        .search-wrap input {
-            width: 100%;
-            padding: 14px 18px 14px 46px;
-            border-radius: 14px;
-            border: 1px solid #26313e;
-            background: #141b23;
-            color: #e8edf2;
-            font-size: 16px;
-            font-weight: 500;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .search-wrap input::placeholder {
-            color: #5e6f82;
-            font-weight: 400;
-        }
-
-        .search-wrap input:focus {
-            border-color: #4a8dcf;
-            box-shadow: 0 0 0 3px rgba(74, 141, 207, 0.2);
-        }
-
-        .search-wrap .icon {
-            position: absolute;
-            left: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            opacity: 0.6;
-            pointer-events: none;
-        }
-
-        /* ── Filter chips ── */
-        .filter-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 22px;
-        }
-
-        .filter-chip {
-            background: #141b23;
-            border: 1px solid #26313e;
-            padding: 6px 16px;
-            border-radius: 40px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #8ea0b5;
-            cursor: pointer;
-            transition: all 0.15s;
-            user-select: none;
-            touch-action: manipulation;
-        }
-
-        .filter-chip:active {
-            transform: scale(0.96);
-        }
-
         .filter-chip.active {
-            background: #1f3347;
-            border-color: #4a8dcf;
-            color: #e8edf2;
-            box-shadow: 0 0 0 1px #4a8dcf;
-        }
-
-        /* ── Workout grid ── */
-        .grid {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        /* ── Card ── */
-        .card {
-            display: block;
-            background: #141b23;
-            border: 1px solid #1f2a36;
-            border-radius: 18px;
-            padding: 18px 20px;
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.12s, border-color 0.2s, box-shadow 0.2s;
-            touch-action: manipulation;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:active {
-            transform: scale(0.98);
-        }
-
-        .card:hover {
-            border-color: #33455a;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        /* subtle accent stripe */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 4px;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .card.type-legs::before {
-            background: #f59e0b;
-        }
-        .card.type-runner::before {
-            background: #10b981;
-        }
-        .card.type-cyclist::before {
-            background: #AA336A;
-        }
-        .card.type-tri::before {
-            background: #3b82f6;
-        }
-        .card.type-swim::before {
-            background: #8b5cf6;
-        }
-        .card.type-other::before {
-            background: #ec4899;
-        }
-
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .card-left {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #f0f4fa;
-            line-height: 1.25;
-            margin-bottom: 3px;
-            word-break: break-word;
-        }
-
-        .card-desc {
-            font-size: 14px;
-            color: #8ea0b5;
-            line-height: 1.4;
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .card-meta {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px 12px;
-            font-size: 13px;
-            color: #6a7d92;
-        }
-
-        .card-meta .tag {
-            background: #1f2a36;
-            padding: 2px 12px;
-            border-radius: 40px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            color: #b0c4d9;
-            border: 1px solid #2a3747;
-        }
-
-        .card-meta .tag.highlight {
-            background: #1f3347;
-            border-color: #4a8dcf44;
-            color: #7ec8f0;
-        }
-
-        .card-arrow {
-            font-size: 20px;
-            color: #4a5f74;
-            flex-shrink: 0;
-            margin-top: 2px;
-            transition: transform 0.2s, color 0.2s;
-        }
-
-        .card:active .card-arrow {
-            transform: translateX(4px);
-            color: #7ec8f0;
-        }
-
-        /* ── Empty state ── */
-        .empty {
-            text-align: center;
-            padding: 50px 20px;
-            color: #5e6f82;
-        }
-        .empty .big {
-            font-size: 48px;
-            margin-bottom: 12px;
-        }
-        .empty p {
-            font-size: 16px;
-        }
-
-        /* ── Footer ── */
-        .footer {
-            margin-top: 32px;
-            padding-top: 18px;
-            border-top: 1px solid #1f2a36;
-            text-align: center;
-            font-size: 14px;
-            color: #4a5f74;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .footer span {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* ── Responsive tweaks ── */
-        @media (max-width: 480px) {
-            body {
-                padding: 12px 12px 32px;
-            }
-            .header-left h1 {
-                font-size: 22px;
-            }
-            .card {
-                padding: 15px 16px;
-            }
-            .card-title {
-                font-size: 16px;
-            }
-            .card-desc {
-                font-size: 13px;
-            }
-            .filter-chip {
-                font-size: 12px;
-                padding: 5px 14px;
-            }
-            .search-wrap input {
-                font-size: 15px;
-                padding: 12px 14px 12px 42px;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 16px;
-            }
-            .card {
-                padding: 20px 22px;
-            }
-            .card::before {
-                width: 5px;
-            }
-        }
-
-        /* ── Print friendly ── */
-        @media print {
-            body {
-                background: white;
-                color: #111;
-                padding: 0.5in;
-            }
-            .card {
-                border-color: #ccc;
-                background: #f9f9f9;
-                break-inside: avoid;
-            }
-            .card::before {
-                display: none;
-            }
-            .search-wrap,
-            .filter-row,
-            .badge-count,
-            .footer {
-                display: none !important;
-            }
-            .header {
-                border-bottom-color: #ccc;
-            }
-            .header-left h1 {
-                -webkit-text-fill-color: #111;
-                color: #111;
-                background: none;
-            }
-            .header-left .sub {
-                -webkit-text-fill-color: #555;
-                color: #555;
-            }
+            @apply bg-brand-100 dark:bg-brand-900/30 border-brand-500 text-brand-700 dark:text-brand-300 ring-1 ring-brand-500;
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
 
-    <div class="container">
+    <div class="mx-auto max-w-3xl px-4 py-8 md:py-12">
 
         <!-- ─── HEADER ─── -->
-        <header class="header">
-            <div class="header-left">
-                <h1>🏋️ Workout Hub</h1>
-                <div class="sub">Tap a plan &amp; hit the gym</div>
+        <header class="flex flex-wrap items-end justify-between gap-2 pb-6 mb-8 border-b-2 border-slate-200 dark:border-slate-800">
+            <div>
+                <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-br from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent">
+                    🏋️ Workout Hub
+                </h1>
+                <p class="text-sm font-medium text-slate-500 dark:text-slate-400 tracking-wide">
+                    Tap a plan & hit the gym
+                </p>
             </div>
-            <div class="badge-count" id="countBadge">4 plans</div>
+            <div id="countBadge" class="px-4 py-1 text-sm font-semibold rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 whitespace-nowrap">
+                9 plans
+            </div>
         </header>
 
         <!-- ─── SEARCH ─── -->
-        <div class="search-wrap">
-            <span class="icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Search workouts…" autocomplete="off" />
+        <div class="relative mb-6">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-xl opacity-60 pointer-events-none">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search workouts…" autocomplete="off" 
+                class="w-full py-3.5 pl-12 pr-4 text-lg font-medium rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:ring-4 focus:ring-brand-500/20 focus:border-brand-500 transition-all" />
         </div>
 
         <!-- ─── FILTERS ─── -->
-        <div class="filter-row" id="filterRow">
-            <span class="filter-chip active" data-filter="all">All</span>
-            <span class="filter-chip" data-filter="legs">🦵 Legs</span>
-            <span class="filter-chip" data-filter="runner">🏃 Runner</span>
-            <span class="filter-chip" data-filter="tri">🚴 Tri</span>
-            <span class="filter-chip" data-filter="cyclist">🚴 Cyclist</span>
-            <span class="filter-chip" data-filter="swim">🏊 Swim</span>
+        <div class="flex flex-wrap gap-2 mb-8" id="filterRow">
+            <span class="filter-chip active cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all select-none" data-filter="all">All</span>
+            <span class="filter-chip cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all select-none" data-filter="legs">🦵 Legs</span>
+            <span class="filter-chip cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all select-none" data-filter="runner">🏃 Runner</span>
+            <span class="filter-chip cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all select-none" data-filter="tri">🚴 Tri</span>
+            <span class="filter-chip cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all select-none" data-filter="cyclist">🚴 Cyclist</span>
+            <span class="filter-chip cursor-pointer px-4 py-1.5 rounded-full text-sm font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-700 transition-all select-none" data-filter="swim">🏊 Swim</span>
         </div>
 
         <!-- ─── GRID ─── -->
-        <div class="grid" id="workoutGrid">
+        <div id="workoutGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Cards will be rendered by JS -->
         </div>
 
         <!-- ─── EMPTY STATE ─── -->
-        <div class="empty" id="emptyState" style="display:none;">
-            <div class="big">🤷</div>
-            <p>No workouts match your filter.</p>
+        <div id="emptyState" class="hidden py-16 text-center" style="display:none;">
+            <div class="text-5xl mb-4">🤷</div>
+            <p class="text-lg text-slate-500 dark:text-slate-400 font-medium">No workouts match your filter.</p>
         </div>
 
         <!-- ─── FOOTER ─── -->
-        <div class="footer">
-            <span>💪 <span id="countWorkout">5 workouts</span></span>
-            <span>📱 tap to open</span>
-            <span>⚡ more coming</span>
-        </div>
+        <footer class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-wrap justify-center gap-6 text-sm font-medium text-slate-500 dark:text-slate-400">
+            <span class="flex items-center gap-2">💪 <span id="countWorkout">9 workouts</span></span>
+            <span class="flex items-center gap-2">📱 tap to open</span>
+            <span class="flex items-center gap-2">⚡ more coming</span>
+        </footer>
 
     </div>
 
@@ -443,7 +104,7 @@
                 id: 'leg-day',
                 title: 'Leg Day Circuit',
                 desc: 'Lower body strength & power – glute bridges, lunges, jump squats.',
-                file: 'Short_Leg_day.html',
+                file: 'leg-day-circuit.html',
                 type: 'legs',
                 tags: ['Lower Body', 'Circuit', 'Power'],
                 emoji: '🦵'
@@ -451,7 +112,7 @@
                 id: 'runner',
                 title: "Runner's Strength",
                 desc: 'Injury prevention & resilience – 10 exercises for runners.',
-                file: 'Runners_lower_body_workout.html',
+                file: 'runner-lower-body-workout.html',
                 type: 'runner',
                 tags: ['Running', 'Injury Prevention', 'Unilateral'],
                 emoji: '🏃'
@@ -459,7 +120,7 @@
                 id: 'cyclist',
                 title: "Endurance Cyclist – Gym Backup Plan",
                 desc: 'Cycling Challenge · weather-proof training',
-                file: 'endurance_cyclist_plan.html',
+                file: 'endurance-cyclist-plan.html',
                 type: 'cyclist',
                 tags: ['Bad Weather', 'Core', 'Posture'],
                 emoji: '🚴'
@@ -467,7 +128,7 @@
                 id: 'triathlon',
                 title: 'Triathlon S&C',
                 desc: 'Strength for swim / bike / run – full body, 4x6 strength range.',
-                file: 'Triathlon S&C plan_260818_090116.html',
+                file: 'triathlon-gym-plan.html',
                 type: 'tri',
                 tags: ['Triathlon', 'Full Body', 'Strength'],
                 emoji: '🚴'
@@ -475,7 +136,7 @@
                 id: 'triathlon2',
                 title: 'Triathlon Strength & Conditioning',
                 desc: 'Gym support for swim · bike · run',
-                file: 'gym-workouts.html',
+                file: 'triathlon-strength-conditioning.html',
                 type: 'tri',
                 tags: ['Triathlon', 'Gym Support', 'Strength'],
                 emoji: '🚴'
@@ -491,15 +152,15 @@
                 id: 'swimmer',
                 title: 'Swimmer Gym Plan',
                 desc: '13yo · 47kg · safe bulk & swim-specific strength.',
-                file: 'Teen_workout_plan.html',
+                file: 'swimmer-gym-teen.html',
                 type: 'swim',
                 tags: ['Swimming', 'Youth', 'Bulking'],
                 emoji: '🏊'
             }, {
                 id: 'runner-strength',
-                title: 'Strength  Build up for a Youth Runner',
+                title: 'Strength Build up for a Youth Runner',
                 desc: 'Run-specific strength. Physio recommended',
-                file: 'strength-build-up-young-runner.html',
+                file: 'youth-runner-strength-build-up.html',
                 type: 'runner',
                 tags: ['Running', 'Youth', 'Strength'],
                 emoji: '🏃'
@@ -507,7 +168,7 @@
                 id: 'runner-strength-conditioning',
                 title: 'Youth Runner Strength & Conditioning',
                 desc: 'Female teen · 51 kg · little prior strength work',
-                file: 'Strength_and_Conditioning_Youth_Runner.html',
+                file: 'youth-runner-strength-conditioning.html',
                 type: 'runner',
                 tags: ['Running', 'Youth', 'Strength'],
                 emoji: '🏃'
@@ -519,6 +180,7 @@
             const filterChips = document.querySelectorAll('.filter-chip');
             const emptyState = document.getElementById('emptyState');
             const countBadge = document.getElementById('countBadge');
+            const countWorkout = document.getElementById('countWorkout');
 
             let activeFilter = 'all';
             let searchQuery = '';
@@ -536,15 +198,15 @@
                 return map[type] || '📌 Other';
             }
 
-            function getTypeClass(type) {
+            function getTypeColor(type) {
                 const map = {
-                    legs: 'type-legs',
-                    runner: 'type-runner',
-                    cyclist: 'type-cyclist', 
-                    tri: 'type-tri',
-                    swim: 'type-swim'
+                    legs: 'bg-orange-500',
+                    runner: 'bg-emerald-500',
+                    cyclist: 'bg-rose-500', 
+                    tri: 'bg-blue-500',
+                    swim: 'bg-violet-500'
                 };
-                return map[type] || 'type-other';
+                return map[type] || 'bg-slate-500';
             }
 
             function matchesWorkout(w) {
@@ -571,40 +233,39 @@
                 
                 if (count === 0) {
                     grid.innerHTML = '';
-                    emptyState.style.display = 'block';
+                    emptyState.classList.remove('hidden');
                     return;
                 }
-                emptyState.style.display = 'none';
+                emptyState.classList.add('hidden');
 
                 let html = '';
                 for (const w of filtered) {
                     const typeLabel = getTypeLabel(w.type);
-                    const typeClass = getTypeClass(w.type);
+                    const typeColor = getTypeColor(w.type);
 
                     // Build tag HTML
                     let tagsHtml = '';
-                    // show first 2 tags as small pills
                     const displayTags = w.tags.slice(0, 2);
                     for (const t of displayTags) {
-                        tagsHtml += `<span class="tag">${t}</span>`;
+                        tagsHtml += `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">${t}</span>`;
                     }
-                    // if there are more, show +N
                     if (w.tags.length > 2) {
-                        tagsHtml += `<span class="tag">+${w.tags.length - 2}</span>`;
+                        tagsHtml += `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700">+${w.tags.length - 2}</span>`;
                     }
 
                     html += `
-                        <a class="card ${typeClass}" href="${w.file}" target="_top">
-                            <div class="card-top">
-                                <div class="card-left">
-                                    <div class="card-title">${w.emoji} ${w.title}</div>
-                                    <div class="card-desc">${w.desc}</div>
-                                    <div class="card-meta">
-                                        <span class="tag highlight">${typeLabel}</span>
+                        <a class="group relative block bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 no-underline transition-all hover:scale-[1.02] hover:shadow-xl hover:border-slate-300 dark:hover:border-slate-700 active:scale-[0.98]" href="${w.file}" target="_top">
+                            <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl ${typeColor}"></div>
+                            <div class="flex justify-between items-start gap-3">
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-lg font-bold text-slate-900 dark:text-slate-100 leading-tight mb-1 truncate">${w.emoji} ${w.title}</div>
+                                    <div class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-3 line-clamp-2">${w.desc}</div>
+                                    <div class="flex flex-wrap items-center gap-2 text-xs">
+                                        <span class="px-2.5 py-0.5 rounded-full font-bold bg-brand-50 dark:bg-brand-900/20 text-brand-600 dark:text-brand-400 border border-brand-100 dark:border-brand-900/30">${typeLabel}</span>
                                         ${tagsHtml}
                                     </div>
                                 </div>
-                                <span class="card-arrow">›</span>
+                                <span class="text-2xl text-slate-300 dark:text-slate-700 group-hover:text-brand-500 transition-colors">›</span>
                             </div>
                         </a>
                     `;

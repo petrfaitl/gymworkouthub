@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Strength & Conditioning — Youth Runner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#052e16',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, 'Segoe UI', Roboto, system-ui, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300">
+    <div class="mx-auto max-w-3xl px-4 py-8 md:py-12 pb-32">
+        <!-- Back Link -->
+        <a href="index.html" class="inline-flex items-center gap-2 mb-8 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+            ← Back to Dashboard
+        </a>
+
+        <!-- Header -->
+        <header class="mb-10">
+            <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-br from-slate-900 to-slate-600 dark:from-white dark:to-slate-400 bg-clip-text text-transparent mb-2">
+                🏋️ Youth Runner S&C
+            </h1>
+            <p class="text-lg font-medium text-slate-500 dark:text-slate-400 mb-6">
+                Strength & conditioning for middle‑distance
+            </p>
+            <div class="inline-flex flex-wrap items-center gap-3 px-4 py-2 rounded-2xl bg-slate-200/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <span>🧑‍🦰 Female teen</span>
+                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <span>⚖️ 51 kg</span>
+                <span class="text-slate-300 dark:text-slate-700">|</span>
+                <span>📏 165 cm</span>
+            </div>
+        </header>
+
+        <!-- Program summary -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-sm">
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-slate-400 dark:text-slate-500 w-24">Frequency:</span>
+                <span class="font-semibold">Friday gym session</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-slate-400 dark:text-slate-500 w-24">Duration:</span>
+                <span class="font-semibold">~45 min</span>
+            </div>
+            <div class="flex items-center gap-3 sm:col-span-2 border-t border-slate-100 dark:border-slate-800 pt-3 mt-1">
+                <span class="font-bold text-slate-400 dark:text-slate-500 w-24">Goal:</span>
+                <span class="font-semibold text-brand-600 dark:text-brand-400">Resilience, Strength & Power</span>
+            </div>
+        </div>
+
+        <!-- IMPORTANT WARNING -->
+        <div class="p-6 mb-12 rounded-3xl bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-900/30 text-rose-900 dark:text-rose-300">
+            <h4 class="font-bold mb-2">⚠️ Injury history (Tibial Stress)</h4>
+            <ul class="list-disc ml-5 text-sm space-y-1 font-medium">
+                <li>Only progress if previous block was fully pain‑free.</li>
+                <li>Stop if producing sharp arch or shin pain.</li>
+            </ul>
+        </div>
+
+        <!-- ========== DAILY MAINTENANCE ========== -->
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            Shin‑Calf Maintenance
+            <span class="text-sm font-normal text-slate-500">4–5× / week</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30">calf · resilience</div>
+                    <span class="px-2 py-0.5 rounded text-[9px] font-black bg-rose-500 text-white uppercase tracking-tighter">non‑negotiable</span>
+                </div>
+                <h4 class="text-lg font-bold mb-2">Eccentric Heel Drop</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 12–15 / leg</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Stand on step, slow lower one heel. Push up with both. Emphasise slow descent.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/watch?v=3tc0lN_bW5o" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs">anterior tibialis · shin</div>
+                <h4 class="text-lg font-bold mb-2">Seated Toe Raises</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 30 reps</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Heels planted, lift balls of feet toward ceiling, lower slowly.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/results?search_query=seated+toe+raises" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs">gastrocnemius</div>
+                <h4 class="text-lg font-bold mb-2">Calf Raises</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 30 reps</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Stand on step edge, rise onto toes, squeeze, lower slowly. Straight knee.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/results?search_query=standing+calf+raise+step" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+        </div>
+
+        <!-- ========== CIRCUIT 1 ========== -->
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            Circuit 1 — Foundation
+            <span class="text-sm font-normal text-slate-500">Weeks 1–4</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs">lower body · compound</div>
+                <h4 class="text-lg font-bold mb-2">Goblet Squat</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 10–12 · 6–8 kg</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Hold DB vertically at chest, squat to parallel, keep chest up.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/watch?v=BR4tlEE_A98" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs">unilateral · posterior</div>
+                <h4 class="text-lg font-bold mb-2">Single‑Leg RDL</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 8–10 / leg · 4–6 kg</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Hinge at hip on one leg, lower DB along shin, keep back flat.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/watch?v=fkej6PUmvmc" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs text-xs">core · lateral</div>
+                <h4 class="text-lg font-bold mb-2">Side Plank</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 30–45s / side</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Prop on elbow, lift hips, keep a straight line head to heels.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/watch?v=KeqFm_rwO3I" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs text-xs">upper back · posture</div>
+                <h4 class="text-lg font-bold mb-2">Seated Cable Row</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 10–12 · 15–20 kg</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Pull handle to stomach, squeeze blades. Foundation posture work.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/watch?v=OeLb503NZHk" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+        </div>
+
+        <!-- ========== CIRCUIT 2 ========== -->
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            Circuit 2 — Base
+            <span class="text-sm font-normal text-slate-500">Weeks 5–8</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs text-xs">plyometric · reactive</div>
+                <h4 class="text-lg font-bold mb-2">Dorsiflexion Pogos</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 15 reps</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Small hops, pull toes toward shins in mid‑air. Prime mechanics.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/results?search_query=dorsiflexion+pogos" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs text-xs text-xs">plyometric · coord</div>
+                <h4 class="text-lg font-bold mb-2">Skipping (easy pace)</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 60–70m</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Use rope or simulate. Focus on soft landings and rhythm.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/results?search_query=skipping+technique" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs text-xs text-xs">glutes · power</div>
+                <h4 class="text-lg font-bold mb-2">Hip Thrust</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 12 · 15–20 kg</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Upper back on bench, drive through heels to lift hips.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/watch?v=pF17m_CXfL0" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs text-xs text-xs">core · support</div>
+                <h4 class="text-lg font-bold mb-2">Side Plank</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 40s / side</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Maintain rigid spine. Higher duration for base building.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/watch?v=KeqFm_rwO3I" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+        </div>
+
+        <!-- ========== CIRCUIT 3 ========== -->
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+            Circuit 3 — Build
+            <span class="text-sm font-normal text-slate-500">Weeks 9–12</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs text-xs">plyometric · landing</div>
+                <h4 class="text-lg font-bold mb-2">Land‑and‑Hold</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 6 / leg</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Step off 20–30cm box, land softly on one leg, hold for 2–3s.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/results?search_query=land+and+hold+single+leg" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+            <div class="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl bg-emerald-500"></div>
+                <div class="inline-block px-2.5 py-0.5 mb-3 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30 text-xs text-xs text-xs text-xs">unilateral · strength</div>
+                <h4 class="text-lg font-bold mb-2">Bulgarian Split Squat</h4>
+                <div class="inline-block px-3 py-1 mb-4 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold italic">3 × 10 / leg · 5–7 kg</div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                    <strong>How:</strong> Rear foot on bench. Lower until front thigh is parallel, drive up.
+                </p>
+                <a class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-xs font-bold border border-slate-100 dark:border-slate-700 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors" href="https://www.youtube.com/watch?v=yewlXtRs3K4" target="_blank">
+                    <span class="text-[10px]">▶</span> Watch demo
+                </a>
+            </div>
+
+        </div>
+
+        <!-- ========== PROGRESSION & LOAD NOTES ========== -->
+        <footer class="mt-16 pt-10 border-t border-slate-200 dark:border-slate-800 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+            <h5 class="text-base font-bold text-slate-900 dark:text-slate-100 mb-4">📌 Progression rules & weight guidelines</h5>
+            <div class="p-6 rounded-3xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 font-medium mb-10">
+                <ul class="list-disc ml-5 space-y-2">
+                    <li><strong>Start light</strong> – suggested weights are conservative for a 51 kg teen.</li>
+                    <li><strong>Daily maintenance</strong> should be done 4–5× per week.</li>
+                    <li><strong>Cutback weeks (4, 8, 12, 16)</strong> – reduce sets by ~30%.</li>
+                    <li><strong>Track and hill sessions</strong> always followed by an easy day.</li>
+                </ul>
+            </div>
+
+            <div class="mt-12 text-center text-xs font-bold text-slate-400 dark:text-slate-600">
+                ⏱️ Each circuit ~45 min · 2–3× / week
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Session Controls -->
+    <div id="session-controls" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl p-4 flex items-center justify-between gap-4 transition-all opacity-0 translate-y-4 pointer-events-none">
+        <div class="flex items-center gap-3">
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="wake-lock-toggle" class="sr-only peer">
+                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-brand-600"></div>
+                <span class="ml-3 text-sm font-semibold text-slate-700 dark:text-slate-300">Keep Awake</span>
+            </label>
+        </div>
+        <div class="flex items-center gap-4">
+            <span id="progress-text" class="text-sm font-bold text-slate-500 tracking-tight">0/0 Done</span>
+            <button id="reset-session" class="flex items-center justify-center w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-rose-600 transition-colors" title="Reset Session">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Wait for DOM to be ready
+            document.addEventListener('DOMContentLoaded', () => {
+                const controls = document.getElementById('session-controls');
+                const wakeLockToggle = document.getElementById('wake-lock-toggle');
+                const progressText = document.getElementById('progress-text');
+                const resetButton = document.getElementById('reset-session');
+                
+                // Robust exercise selection: find headers and get their container cards
+                const exercises = Array.from(document.querySelectorAll('h3, h4'))
+                    .map(h => h.closest('.group, .bg-white'))
+                    .filter((el, index, self) => el && self.indexOf(el) === index && !el.querySelector('h1') && !el.querySelector('h2'));
+                
+                let wakeLock = null;
+
+                // Show controls with a slight delay
+                setTimeout(() => {
+                    if (controls) controls.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                }, 500);
+
+                // Wake Lock Logic
+                if ('wakeLock' in navigator && wakeLockToggle) {
+                    async function requestWakeLock() {
+                        try {
+                            wakeLock = await navigator.wakeLock.request('screen');
+                        } catch (err) {
+                            wakeLockToggle.checked = false;
+                        }
+                    }
+
+                    wakeLockToggle.addEventListener('change', async () => {
+                        if (wakeLockToggle.checked) {
+                            await requestWakeLock();
+                        } else if (wakeLock) {
+                            await wakeLock.release();
+                            wakeLock = null;
+                        }
+                    });
+
+                    document.addEventListener('visibilitychange', async () => {
+                        if (wakeLock !== null && document.visibilityState === 'visible') {
+                            await requestWakeLock();
+                        }
+                    });
+                } else if (wakeLockToggle) {
+                    wakeLockToggle.parentElement.style.display = 'none';
+                }
+
+                // Progress & Done Logic
+                function updateProgress() {
+                    if (!progressText) return;
+                    const doneCount = document.querySelectorAll('.exercise-done').length;
+                    progressText.textContent = `${doneCount}/${exercises.length} Done`;
+                }
+
+                exercises.forEach((ex) => {
+                    ex.classList.add('relative'); // Ensure absolute positioning works for the button
+                    const btn = document.createElement('button');
+                    btn.className = 'absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 shadow-sm hover:scale-110 active:scale-95 transition-all z-10';
+                    btn.innerHTML = `
+                        <span class="undone-icon text-slate-400 dark:text-slate-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </span>
+                        <span class="done-icon hidden text-emerald-600 dark:text-emerald-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </span>
+                    `;
+                    
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const isDone = ex.classList.toggle('exercise-done');
+                        ex.classList.toggle('opacity-50', isDone);
+                        btn.querySelector('.undone-icon').classList.toggle('hidden', isDone);
+                        btn.querySelector('.done-icon').classList.toggle('hidden', !isDone);
+                        updateProgress();
+                    });
+                    
+                    ex.appendChild(btn);
+                });
+
+                if (resetButton) {
+                    resetButton.addEventListener('click', () => {
+                        exercises.forEach(ex => {
+                            ex.classList.remove('exercise-done', 'opacity-50');
+                            const btn = ex.querySelector('button.absolute');
+                            if (btn) {
+                                btn.querySelector('.undone-icon').classList.remove('hidden');
+                                btn.querySelector('.done-icon').classList.add('hidden');
+                            }
+                        });
+                        updateProgress();
+                    });
+                }
+
+                updateProgress();
+            });
+        })();
+    </script>
+</body>
+</html>
