@@ -9,9 +9,8 @@ export function initSessionControls() {
     const progressText = document.getElementById('progress-text');
     const resetButton = document.getElementById('reset-session');
 
-    // Robust exercise selection: find headers and get their container cards
-    const exercises = Array.from(document.querySelectorAll('h3, h4'))
-      .map(h => h.closest('.group, .bg-white'))
+    // Prefer explicit data attribute for exercise cards; fallback to nothing
+    const exercises = Array.from(document.querySelectorAll('[data-exercise-card]'))
       .filter((el, index, self) => el && self.indexOf(el) === index && !el.querySelector('h1') && !el.querySelector('h2'));
 
     let wakeLock = null;
