@@ -9,8 +9,9 @@ export function initSessionControls() {
     const progressText = document.getElementById('progress-text');
     const resetButton = document.getElementById('reset-session');
 
-    // Prefer explicit data attribute for exercise cards; fallback to nothing
-    const exercises = Array.from(document.querySelectorAll('[data-exercise-card]'))
+    // Prefer explicit data attribute for exercise cards; fallback to previous selectors
+    const exercises = Array.from(document.querySelectorAll('[data-exercise-card], .group, .bg-white'))
+      .map(el => el.matches('[data-exercise-card]') ? el : null)
       .filter((el, index, self) => el && self.indexOf(el) === index && !el.querySelector('h1') && !el.querySelector('h2'));
 
     let wakeLock = null;
@@ -76,7 +77,7 @@ export function initSessionControls() {
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle></svg>
         </span>
         <span class="done-icon hidden text-emerald-600 dark:text-emerald-500">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
         </span>
       `;
 
