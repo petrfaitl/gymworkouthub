@@ -1,18 +1,21 @@
-// scripts/session-controls.js
-// Externalized session controls: wake lock + exercise progress UI
-// Exports initSessionControls() so it can be imported elsewhere; also runs automatically when loaded.
-export function initSessionControls() {
-  // Wait for DOM to be ready
-  document.addEventListener('DOMContentLoaded', () => {
+(function() {
+  function initSessionControls() {
     const controls = document.getElementById('session-controls');
     const wakeLockToggle = document.getElementById('wake-lock-toggle');
     const progressText = document.getElementById('progress-text');
     const resetButton = document.getElementById('reset-session');
 
-    // Prefer explicit data attribute for exercise cards; fallback to previous selectors
+    // Robust exercise selection: 
+    // 1. Explicitly marked with data-exercise-card
+    // 2. .group or .bg-white containers that have an h3/h4 header
     const exercises = Array.from(document.querySelectorAll('[data-exercise-card], .group, .bg-white'))
-      .map(el => el.matches('[data-exercise-card]') ? el : null)
-      .filter((el, index, self) => el && self.indexOf(el) === index && !el.querySelector('h1') && !el.querySelector('h2'));
+      .filter(el => {
+        if (el.hasAttribute('data-exercise-card')) return true;
+        const hasHeader = el.querySelector('h3, h4');
+        const isNotMainCard = !el.querySelector('h1') && !el.querySelector('h2');
+        return hasHeader && isNotMainCard;
+      })
+      .filter((el, index, self) => self.indexOf(el) === index);
 
     let wakeLock = null;
 
@@ -26,8 +29,14 @@ export function initSessionControls() {
       async function requestWakeLock() {
         try {
           wakeLock = await navigator.wakeLock.request('screen');
+          
+          // Listen for system-initiated release
+          wakeLock.addEventListener('release', () => {
+            if (wakeLockToggle.checked && document.visibilityState === 'visible') {
+              requestWakeLock();
+            }
+          });
         } catch (err) {
-          // If request fails, make sure toggle reflects state
           wakeLockToggle.checked = false;
           console.warn('Wake Lock request failed:', err);
         }
@@ -47,13 +56,11 @@ export function initSessionControls() {
       });
 
       document.addEventListener('visibilitychange', async () => {
-        // Some browsers require re-requesting the lock when visibility changes
-        if (wakeLock !== null && document.visibilityState === 'visible') {
+        if (document.visibilityState === 'visible' && wakeLockToggle.checked) {
           await requestWakeLock();
         }
       });
     } else if (wakeLockToggle) {
-      // Hide the control if Wake Lock API isn't available
       wakeLockToggle.parentElement.style.display = 'none';
     }
 
@@ -65,18 +72,17 @@ export function initSessionControls() {
     }
 
     exercises.forEach((ex) => {
-      // Ensure we don't duplicate buttons when module is re-run
       if (ex.querySelector('button[data-session-controls]')) return;
 
-      ex.classList.add('relative'); // Ensure absolute positioning works for the button
+      ex.classList.add('relative');
       const btn = document.createElement('button');
       btn.setAttribute('data-session-controls', '1');
-      btn.className = 'absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 shadow-sm';
+      btn.className = 'absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 shadow-sm hover:scale-110 active:scale-95 transition-all z-10';
       btn.innerHTML = `
-        <span class="undone-icon text-slate-400 dark:text-slate-500">
+        <span class="undone-icon text-slate-400 dark:text-slate-500 transition-transform duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle></svg>
         </span>
-        <span class="done-icon hidden text-emerald-600 dark:text-emerald-500">
+        <span class="done-icon hidden text-emerald-600 dark:text-emerald-500 transition-transform duration-300 scale-0">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
         </span>
       `;
@@ -86,11 +92,24 @@ export function initSessionControls() {
         e.stopPropagation();
         const isDone = ex.classList.toggle('exercise-done');
         ex.classList.toggle('opacity-50', isDone);
+        
         const undone = btn.querySelector('.undone-icon');
         const done = btn.querySelector('.done-icon');
-        if (undone && done) {
-          undone.classList.toggle('hidden', isDone);
-          done.classList.toggle('hidden', !isDone);
+        
+        if (isDone) {
+          if (undone) undone.classList.add('hidden');
+          if (done) {
+            done.classList.remove('hidden');
+            setTimeout(() => done.classList.remove('scale-0'), 10);
+          }
+        } else {
+          if (done) {
+            done.classList.add('scale-0');
+            setTimeout(() => {
+              done.classList.add('hidden');
+              if (undone) undone.classList.remove('hidden');
+            }, 300);
+          }
         }
         updateProgress();
       });
@@ -107,8 +126,9 @@ export function initSessionControls() {
             const undone = btn.querySelector('.undone-icon');
             const done = btn.querySelector('.done-icon');
             if (undone && done) {
-              undone.classList.remove('hidden');
+              done.classList.add('scale-0');
               done.classList.add('hidden');
+              undone.classList.remove('hidden');
             }
           }
         });
@@ -117,8 +137,11 @@ export function initSessionControls() {
     }
 
     updateProgress();
-  });
-}
+  }
 
-// Auto-run when module is loaded in a page
-initSessionControls();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSessionControls);
+  } else {
+    initSessionControls();
+  }
+})();
