@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Strength That Shows Up Late In The Race</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .accent-glow { box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        input[type="checkbox"]:checked + div { text-decoration: line-through; opacity: 0.5; }
+        .timer-ring { background: conic-gradient(#10b981 0%, #1e293b 0%); }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen pb-20 selection:bg-emerald-500 selection:text-white">
+
+    <!-- Sticky Header with Session Controls -->
+    <header class="sticky top-0 z-50 glass-panel shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-black text-white tracking-tight">THE STRENGTH THAT <span class="text-emerald-400">SHOWS UP LATE</span></h1>
+                <p class="text-sm text-slate-400">A 50-minute gym session for runners</p>
+            </div>
+            
+            <div class="flex items-center gap-4 flex-wrap justify-center">
+                <!-- Timer Control -->
+                <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 rounded-lg px-4 py-2">
+                    <span id="timer" class="font-mono text-xl text-emerald-400 font-bold">50:00</span>
+                    <button id="startTimer" class="text-xs bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-1 rounded transition">Start</button>
+                    <button id="resetTimer" class="text-xs bg-slate-700 hover:bg-slate-600 text-white px-2 py-1 rounded transition">Reset</button>
+                </div>
+
+                <!-- Weight Profile Toggle -->
+                <div class="flex bg-slate-800 rounded-lg p-1 border border-slate-700">
+                    <button id="btnTeen" class="px-3 py-1 text-xs font-semibold rounded-md bg-emerald-600 text-white transition">Teen (16yo, 51kg)</button>
+                    <button id="btnAdult" class="px-3 py-1 text-xs font-semibold rounded-md text-slate-400 hover:text-white transition">Adult Male (50yo)</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+        
+        <!-- Session Overview Banner -->
+        <div class="bg-gradient-to-r from-emerald-900/40 to-slate-900 border border-emerald-500/20 rounded-2xl p-6 mb-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div class="max-w-2xl">
+                <h2 class="text-lg font-bold text-emerald-400 mb-2">The Pay-off</h2>
+                <p class="text-slate-300 text-sm leading-relaxed">The pay-off rarely shows up on a fresh time trial. It shows up as how much a runner slows over the last third of a race. Heavy lifting plus plyometrics, twice a week, six to fourteen weeks before judging it.</p>
+            </div>
+            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 w-full md:w-auto">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Programming Snapshot</h3>
+                <ul class="text-xs text-slate-300 space-y-1">
+                    <li><span class="text-emerald-400">Timing:</span> 3+ hrs after run, 24+ hrs before key session</li>
+                    <li><span class="text-emerald-400">Frequency:</span> 2x a week (lifts + plyo same session)</li>
+                    <li><span class="text-emerald-400">Time to Effect:</span> 6-14 weeks minimum</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Session Blocks -->
+        <div class="space-y-12">
+
+            <!-- BLOCK 1: WARM-UP & ACTIVATION -->
+            <div>
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-800 pb-2">
+                    <span class="bg-emerald-500 text-slate-900 font-black text-xl px-3 py-1 rounded-lg">01</span>
+                    <h2 class="text-2xl font-bold text-white">Warm-up & Activation</h2>
+                    <span class="text-sm text-slate-400 ml-auto hidden sm:block">~10 minutes</span>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- Single Leg Card -->
+                    <div class="glass-panel rounded-xl overflow-hidden relative">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Single Leg</h3>
+                                    <p class="text-sm text-slate-400 mt-1">One leg, all the load, no help from the other side.</p>
+                                </div>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="hidden peer" onchange="updateProgress()">
+                                    <div class="w-6 h-6 rounded border-2 border-slate-500 peer-checked:bg-emerald-500 peer-checked:border-emerald-500 flex items-center justify-center transition">
+                                        <svg class="w-4 h-4 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Exercises</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Step-up</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Split squat</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Single-leg RDL</span>
+                                </div>
+                                <p class="text-xs text-emerald-400 mt-2 font-semibold">Start with Step-up. Build to Single-leg RDL.</p>
+                            </div>
+
+                            <div class="bg-slate-900/50 rounded-lg p-3 mb-4 border border-slate-800">
+                                <p class="text-xs text-slate-400"><span class="text-orange-400 font-bold">Coach's Eye:</span> full foot down, knee tracks well, pelvis stays level.</p>
+                            </div>
+
+                            <!-- Weight Recommendations -->
+                            <div class="bg-slate-800/80 rounded-lg p-4 border border-slate-700">
+                                <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                                    Recommended Load
+                                </h4>
+                                <div class="text-sm weight-teen text-emerald-300">Bodyweight initially. RDLs: 5-8kg dumbbells, progressing to 12-15kg.</div>
+                                <div class="text-sm weight-adult hidden text-blue-300">Bodyweight or light dumbbells (10-15kg). RDLs: 15-20kg dumbbells, progressing to 25-30kg.</div>
+                            </div>
+                        </div>
+                        <details class="group bg-slate-900/30 border-t border-slate-800">
+                            <summary class="flex justify-between items-center p-4 cursor-pointer list-none text-sm text-slate-400 hover:text-emerald-400 transition">
+                                <span>Evidence & Programming</span>
+                                <span class="transition group-open:rotate-180">▼</span>
+                            </summary>
+                            <div class="px-6 pb-4 text-xs text-slate-400 space-y-2">
+                                <p><strong class="text-slate-300">Evidence:</strong> Single-leg RDLs in the warm-up cut hamstring-strain risk by two-thirds across a season (Otani et al. 2025).</p>
+                                <p><strong class="text-slate-300">Sets/Reps:</strong> 2-4 sets x 8-12 reps (base) or 3-8 reps (trained). Rest: 60-180s.</p>
+                                <p class="italic text-emerald-400 mt-2">"Put single-leg work first in the program, not last."</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Power & Plyo Card -->
+                    <div class="glass-panel rounded-xl overflow-hidden relative">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Power & Plyometric Support</h3>
+                                    <p class="text-sm text-slate-400 mt-1">This is where strength turns into speed.</p>
+                                </div>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="hidden peer" onchange="updateProgress()">
+                                    <div class="w-6 h-6 rounded border-2 border-slate-500 peer-checked:bg-emerald-500 peer-checked:border-emerald-500 flex items-center justify-center transition">
+                                        <svg class="w-4 h-4 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Exercises</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Pogo hops</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Squat jump</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Bounds</span>
+                                </div>
+                                <p class="text-xs text-emerald-400 mt-2 font-semibold">Start with Pogo hops. Build to Bounds.</p>
+                            </div>
+
+                            <div class="bg-slate-900/50 rounded-lg p-3 mb-4 border border-slate-800">
+                                <p class="text-xs text-slate-400"><span class="text-orange-400 font-bold">Coach's Eye:</span> fast contacts, quality first, stop before intent fades.</p>
+                            </div>
+
+                            <!-- Weight Recommendations -->
+                            <div class="bg-slate-800/80 rounded-lg p-4 border border-slate-700">
+                                <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                                    Recommended Load
+                                </h4>
+                                <div class="text-sm weight-teen text-emerald-300">Bodyweight only. Focus on landing mechanics and soft, quiet contacts.</div>
+                                <div class="text-sm weight-adult hidden text-blue-300">Bodyweight, or very light dumbbells (5kg) for squat jumps if joints allow. Emphasize quality over height.</div>
+                            </div>
+                        </div>
+                        <details class="group bg-slate-900/30 border-t border-slate-800">
+                            <summary class="flex justify-between items-center p-4 cursor-pointer list-none text-sm text-slate-400 hover:text-emerald-400 transition">
+                                <span>Evidence & Programming</span>
+                                <span class="transition group-open:rotate-180">▼</span>
+                            </summary>
+                            <div class="px-6 pb-4 text-xs text-slate-400 space-y-2">
+                                <p><strong class="text-slate-300">Evidence:</strong> Combined heavy plus plyometric training gave the largest effect on running performance of any method reviewed (Llanos-Lagos et al. 2024).</p>
+                                <p><strong class="text-slate-300">Sets/Reps:</strong> 3-6 sets x 2-5 reps. Rest: 60-180s.</p>
+                                <p class="italic text-emerald-400 mt-2">"Pair the jump with the lift. Don’t swap one for the other."</p>
+                            </div>
+                        </details>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BLOCK 2: MAIN STRENGTH -->
+            <div>
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-800 pb-2">
+                    <span class="bg-orange-500 text-slate-900 font-black text-xl px-3 py-1 rounded-lg">02</span>
+                    <h2 class="text-2xl font-bold text-white">Main Strength</h2>
+                    <span class="text-sm text-slate-400 ml-auto hidden sm:block">~20 minutes</span>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <!-- Anterior Chain -->
+                    <div class="glass-panel rounded-xl overflow-hidden relative">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Anterior Chain</h3>
+                                    <p class="text-sm text-slate-400 mt-1">Squat heavy and your push-off gets stronger.</p>
+                                </div>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="hidden peer" onchange="updateProgress()">
+                                    <div class="w-6 h-6 rounded border-2 border-slate-500 peer-checked:bg-emerald-500 peer-checked:border-emerald-500 flex items-center justify-center transition">
+                                        <svg class="w-4 h-4 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Exercises</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Goblet squat</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Front squat</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Back squat</span>
+                                </div>
+                                <p class="text-xs text-emerald-400 mt-2 font-semibold">Start with Goblet squat. Build to Back squat.</p>
+                            </div>
+
+                            <div class="bg-slate-900/50 rounded-lg p-3 mb-4 border border-slate-800">
+                                <p class="text-xs text-slate-400"><span class="text-orange-400 font-bold">Coach's Eye:</span> own the range, brace well, stop before form breaks.</p>
+                            </div>
+
+                            <!-- Weight Recommendations -->
+                            <div class="bg-slate-800/80 rounded-lg p-4 border border-slate-700">
+                                <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                                    Recommended Load
+                                </h4>
+                                <div class="text-sm weight-teen text-emerald-300">Goblet: 10-16kg. Squat (form solid): 20-30kg base, progressing to 35-45kg heavy sets.</div>
+                                <div class="text-sm weight-adult hidden text-blue-300">Goblet: 20-30kg. Squat: 40-60kg base, progressing to 70-90kg+ heavy sets.</div>
+                            </div>
+                        </div>
+                        <details class="group bg-slate-900/30 border-t border-slate-800">
+                            <summary class="flex justify-between items-center p-4 cursor-pointer list-none text-sm text-slate-400 hover:text-emerald-400 transition">
+                                <span>Evidence & Programming</span>
+                                <span class="transition group-open:rotate-180">▼</span>
+                            </summary>
+                            <div class="px-6 pb-4 text-xs text-slate-400 space-y-2">
+                                <p><strong class="text-slate-300">Evidence:</strong> Heavy squats beat plyometrics alone for running economy and time-trial performance (Eihara et al. 2022).</p>
+                                <p><strong class="text-slate-300">Sets/Reps:</strong> 2-4 sets x 8-12 reps (base) or 3-8 reps at 80%+ 1RM (trained). Rest: 60-180s.</p>
+                                <p class="italic text-emerald-400 mt-2">"Heavy squats move running economy further than jumping ever will alone."</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Posterior Chain -->
+                    <div class="glass-panel rounded-xl overflow-hidden relative">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Posterior Chain</h3>
+                                    <p class="text-sm text-slate-400 mt-1">Your hips drive more of the propulsion than most runners give them credit for.</p>
+                                </div>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="hidden peer" onchange="updateProgress()">
+                                    <div class="w-6 h-6 rounded border-2 border-slate-500 peer-checked:bg-emerald-500 peer-checked:border-emerald-500 flex items-center justify-center transition">
+                                        <svg class="w-4 h-4 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Exercises</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Glute bridge</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Romanian deadlift</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-3 py-1 rounded-full border border-slate-700">Trap bar deadlift</span>
+                                </div>
+                                <p class="text-xs text-emerald-400 mt-2 font-semibold">Start with Glute bridge. Build to Trap bar deadlift.</p>
+                            </div>
+
+                            <div class="bg-slate-900/50 rounded-lg p-3 mb-4 border border-slate-800">
+                                <p class="text-xs text-slate-400"><span class="text-orange-400 font-bold">Coach's Eye:</span> long spine, clear hip hinge, feel it in the glutes and hamstrings.</p>
+                            </div>
+
+                            <!-- Weight Recommendations -->
+                            <div class="bg-slate-800/80 rounded-lg p-4 border border-slate-700">
+                                <h4 class="text-xs font-bold text-white mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                                    Recommended Load
+                                </h4>
+                                <div class="text-sm weight-teen text-emerald-300">Glute bridge: Bodyweight. RDL: 20-30kg base, 35-50kg heavy. Trap bar: 30-40kg base, 50-60kg heavy.</div>
+                                <div class="text-sm weight-adult hidden text-blue-300">Glute bridge: Bodyweight or barbell (40-60kg). RDL: 40-60kg base, 70-100kg+ heavy. Trap bar: 60-80kg base, 100-130kg+ heavy.</div>
+                            </div>
+                        </div>
+                        <details class="group bg-slate-900/30 border-t border-slate-800">
+                            <summary class="flex justify-between items-center p-4 cursor-pointer list-none text-sm text-slate-400 hover:text-emerald-400 transition">
+                                <span>Evidence & Programming</span>
+                                <span class="transition group-open:rotate-180">▼</span>
+                            </summary>
+                            <div class="px-6 pb-4 text-xs text-slate-400 space-y-2">
+                                <p><strong class="text-slate-300">Evidence:</strong> Heavy-load training (≥80% 1RM) lifts running economy, more at higher speeds (Llanos-Lagos et al. 2024).</p>
+                                <p><strong class="text-slate-300">Sets/Reps:</strong> 2-4 sets x 8-12 reps (base) or 3-8 reps at 80%+ 1RM (trained). Rest: 60-180s.</p>
+                                <p class="italic text-emerald-400 mt-2">"Load the hinge as hard as the squat."</p>
+                            </div>
+                        </details>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BLOCK 3: ACCESSORY & STABILITY -->
+            <div>
+                <div class="flex items-center gap-4 mb-6 border-b border-slate-800 pb-2">
+                    <span class="bg-teal-500 text-slate-900 font-black text-xl px-3 py-1 rounded-lg">03</span>
+                    <h2 class="text-2xl font-bold text-white">Accessory & Stability</h2>
+                    <span class="text-sm text-slate-400 ml-auto hidden sm:block">~15 minutes</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- Trunk & Anti-Rotation -->
+                    <div class="glass-panel rounded-xl overflow-hidden relative">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Trunk & Anti-Rotation</h3>
+                                </div>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="hidden peer" onchange="updateProgress()">
+                                    <div class="w-6 h-6 rounded border-2 border-slate-500 peer-checked:bg-emerald-500 peer-checked:border-emerald-500 flex items-center justify-center transition">
+                                        <svg class="w-4 h-4 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Dead bug</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Side plank</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Farmer carry</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Pallof press</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900/50 rounded-lg p-3 mb-4 border border-slate-800">
+                                <p class="text-xs text-slate-400"><span class="text-orange-400 font-bold">Coach's Eye:</span> ribs stacked over pelvis, resist the wobble.</p>
+                            </div>
+
+                            <div class="bg-slate-800/80 rounded-lg p-3 border border-slate-700">
+                                <h4 class="text-xs font-bold text-white mb-1">Recommended Load</h4>
+                                <div class="text-xs weight-teen text-emerald-300">Farmer carry: 10-15kg/hand. Pallof: 5-10kg band.</div>
+                                <div class="text-xs weight-adult hidden text-blue-300">Farmer carry: 20-30kg/hand. Pallof: 15-25kg cable.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frontal Plane & Hip Control -->
+                    <div class="glass-panel rounded-xl overflow-hidden relative">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Frontal Plane & Hip</h3>
+                                </div>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="hidden peer" onchange="updateProgress()">
+                                    <div class="w-6 h-6 rounded border-2 border-slate-500 peer-checked:bg-emerald-500 peer-checked:border-emerald-500 flex items-center justify-center transition">
+                                        <svg class="w-4 h-4 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Single-leg bridge</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Band walk</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Copenhagen plank</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900/50 rounded-lg p-3 mb-4 border border-slate-800">
+                                <p class="text-xs text-slate-400"><span class="text-orange-400 font-bold">Coach's Eye:</span> stay tall, no collapse through the hip.</p>
+                            </div>
+
+                            <div class="bg-slate-800/80 rounded-lg p-3 border border-slate-700">
+                                <h4 class="text-xs font-bold text-white mb-1">Recommended Load</h4>
+                                <div class="text-xs weight-teen text-emerald-300">Bridge: BW. Band walk: Light/Med band. Copenhagen: Short lever.</div>
+                                <div class="text-xs weight-adult hidden text-blue-300">Bridge: BW/5-10kg plate. Band walk: Med/Heavy band. Copenhagen: Long lever.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calf & Foot Complex -->
+                    <div class="glass-panel rounded-xl overflow-hidden relative">
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">Calf & Foot</h3>
+                                </div>
+                                <label class="flex items-center cursor-pointer">
+                                    <input type="checkbox" class="hidden peer" onchange="updateProgress()">
+                                    <div class="w-6 h-6 rounded border-2 border-slate-500 peer-checked:bg-emerald-500 peer-checked:border-emerald-500 flex items-center justify-center transition">
+                                        <svg class="w-4 h-4 text-white hidden peer-checked:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Standing calf raise</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Bent-knee calf raise</span>
+                                    <span class="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded border border-slate-700">Tibialis raise</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-slate-900/50 rounded-lg p-3 mb-4 border border-slate-800">
+                                <p class="text-xs text-slate-400"><span class="text-orange-400 font-bold">Coach's Eye:</span> full range, slow lower, pause at the top.</p>
+                            </div>
+
+                            <div class="bg-slate-800/80 rounded-lg p-3 border border-slate-700">
+                                <h4 class="text-xs font-bold text-white mb-1">Recommended Load</h4>
+                                <div class="text-xs weight-teen text-emerald-300">Calf raises: BW to 10-20kg. Tibialis: BW/light band.</div>
+                                <div class="text-xs weight-adult hidden text-blue-300">Calf raises: BW to 20-40kg. Tibialis: BW/band.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer & Credit -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 border-t border-slate-800 pt-8 pb-12">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div>
+                <h3 class="text-lg font-bold text-white mb-2">Credit & Source</h3>
+                <p class="text-sm text-slate-400 max-w-2xl">This workout plan is based on data extracted from the <strong>Australian Athletics</strong> "The Strength That Shows Up Late In The Race" guide.</p>
+                <p class="text-xs text-slate-500 mt-2">References: ACSM 2026, Eihara et al. 2022, Gao et al. 2025, Lashien et al. 2024, Llanos-Lagos et al. 2024, Otani et al. 2025, Quintana-Cepedal et al. 2025, Sun et al. 2023.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 text-xs text-slate-400 max-w-sm">
+                <p class="font-bold text-slate-300 mb-1">⚠️ Disclaimer</p>
+                General guidance based on current research. It doesn't replace a coach's own periodisation for individual athletes. Always consult with a qualified professional before starting a new training program.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Weight Profile Toggle Logic
+        const btnTeen = document.getElementById('btnTeen');
+        const btnAdult = document.getElementById('btnAdult');
+        const teenWeights = document.querySelectorAll('.weight-teen');
+        const adultWeights = document.querySelectorAll('.weight-adult');
+
+        btnTeen.addEventListener('click', () => {
+            btnTeen.classList.add('bg-emerald-600', 'text-white');
+            btnTeen.classList.remove('text-slate-400', 'hover:text-white');
+            btnAdult.classList.remove('bg-emerald-600', 'text-white');
+            btnAdult.classList.add('text-slate-400', 'hover:text-white');
+            
+            teenWeights.forEach(el => el.classList.remove('hidden'));
+            adultWeights.forEach(el => el.classList.add('hidden'));
+        });
+
+        btnAdult.addEventListener('click', () => {
+            btnAdult.classList.add('bg-emerald-600', 'text-white');
+            btnAdult.classList.remove('text-slate-400', 'hover:text-white');
+            btnTeen.classList.remove('bg-emerald-600', 'text-white');
+            btnTeen.classList.add('text-slate-400', 'hover:text-white');
+            
+            adultWeights.forEach(el => el.classList.remove('hidden'));
+            teenWeights.forEach(el => el.classList.add('hidden'));
+        });
+
+        // Session Timer Logic (50 minutes countdown)
+        let timeLeft = 50 * 60; // 50 minutes in seconds
+        let timerInterval = null;
+        const timerDisplay = document.getElementById('timer');
+        const startBtn = document.getElementById('startTimer');
+        const resetBtn = document.getElementById('resetTimer');
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        startBtn.addEventListener('click', () => {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                startBtn.textContent = 'Start';
+            } else {
+                startBtn.textContent = 'Pause';
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        startBtn.textContent = 'Start';
+                        alert("Time's up! Great session.");
+                    }
+                }, 1000);
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            startBtn.textContent = 'Start';
+            timeLeft = 50 * 60;
+            updateTimerDisplay();
+        });
+
+        // Initialize display
+        updateTimerDisplay();
+
+        // Simple progress tracker (visual feedback on checkbox toggle)
+        function updateProgress() {
+            // In a real app, this could update a progress bar or localStorage.
+            // For now, the CSS handles the visual strike-through via the peer class.
+            console.log("Session progress updated.");
+        }
+    </script>
+</body>
+</html>
